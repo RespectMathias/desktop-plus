@@ -625,7 +625,8 @@ export class CompareSidebar extends React.Component<
     this.setState({ isSearching: true })
     await this.props.dispatcher.setCommitSearchQuery(
       this.props.repository,
-      text
+      text,
+      this.props.compareState.commitSearchAuthorEmail
     )
     this.setState({ isSearching: false })
   }

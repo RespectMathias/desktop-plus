@@ -37,6 +37,10 @@ import {
   ICommitGraphRow,
 } from './commit-graph-model'
 import { CommitGraphCommitListItem } from './commit-graph-commit-list-item'
+import {
+  CommitGraphFilterButton,
+  ICommitAuthorFilter,
+} from './commit-graph-filter-button'
 
 type CommitGraphBranchGroup =
   | 'local'
@@ -347,16 +351,20 @@ export class CommitGraphSidebar extends React.Component<
     (
       commitSHAs: ReadonlyArray<string>,
       commitSearchQuery: string,
+      commitSearchAuthorEmail: string | null,
       commitLookup: Map<string, Commit>
     ): ReadonlyArray<string> => {
       const query = commitSearchQuery.toLowerCase()
+      const authorEmail = commitSearchAuthorEmail?.toLowerCase()
 
-      if (!query) {
+      if (!query && !authorEmail) {
         return commitSHAs
       }
 
-      return commitSHAs.filter(sha =>
-        this.commitIsIncluded(commitLookup.get(sha), query)
+      return commitSHAs.filter(
+        sha =>
+          this.commitIsIncluded(commitLookup.get(sha), query) &&
+          this.commitIsIncludedByAuthor(commitLookup.get(sha), authorEmail)
       )
     }
   )
@@ -539,6 +547,33 @@ export class CommitGraphSidebar extends React.Component<
     this.commitListRef.current?.focus()
   }
 
+  private getAuthorFilterData(): ReadonlyArray<ICommitAuthorFilter> {
+    const seenEmails = new Set<string>()
+    const authors: ICommitAuthorFilter[] = []
+    const commitSHAs = [
+      ...this.props.compareState.allHistoryCommitSHAs,
+      ...this.props.compareState.commitGraphCommitSHAs,
+    ]
+
+    for (const sha of commitSHAs) {
+      const author = this.props.commitLookup.get(sha)?.author
+      const email = author?.email
+      const normalizedEmail = email?.toLowerCase()
+
+      if (email && normalizedEmail && !seenEmails.has(normalizedEmail)) {
+        seenEmails.add(normalizedEmail)
+        authors.push({ name: author.name, email })
+      }
+    }
+
+    return authors.toSorted((a, b) => {
+      const nameComparison = a.name.localeCompare(b.name)
+      return nameComparison === 0
+        ? a.email.localeCompare(b.email)
+        : nameComparison
+    })
+  }
+
   public render() {
     const { commitSearchQuery } = this.props.compareState
 
@@ -546,15 +581,26 @@ export class CommitGraphSidebar extends React.Component<
       <div id="compare-view" role="tabpanel" aria-labelledby="history-tab">
         <div className="commitGraph-view-toolbar">
           <div className="commit-search-form">
-            <FancyTextBox
-              ariaLabel="Commit filter"
-              type="search"
-              symbol={this.state.isSearching ? syncClockwise : octicons.search}
-              symbolClassName={this.state.isSearching ? 'spin' : undefined}
-              placeholder={__DARWIN__ ? 'Search Commits' : 'Search commits'}
-              value={commitSearchQuery}
-              onValueChanged={this.onCommitSearchQueryChanged}
-            />
+            <div className="filter-box-container">
+              <CommitGraphFilterButton
+                authors={this.getAuthorFilterData()}
+                selectedAuthorEmail={
+                  this.props.compareState.commitSearchAuthorEmail
+                }
+                onAuthorChanged={this.onCommitSearchAuthorChanged}
+              />
+              <FancyTextBox
+                ariaLabel="Commit filter"
+                type="search"
+                symbol={
+                  this.state.isSearching ? syncClockwise : octicons.search
+                }
+                symbolClassName={this.state.isSearching ? 'spin' : undefined}
+                placeholder={__DARWIN__ ? 'Search Commits' : 'Search commits'}
+                value={commitSearchQuery}
+                onValueChanged={this.onCommitSearchQueryChanged}
+              />
+            </div>
           </div>
           {this.commitGraph_renderViewModeSwitch()}
         </div>
@@ -899,6 +945,7 @@ export class CommitGraphSidebar extends React.Component<
     const commitSHAs = this.commitGraph_getFilteredCommitSHAsForState(
       this.props.compareState.commitGraphCommitSHAs,
       this.props.compareState.commitSearchQuery,
+      this.props.compareState.commitSearchAuthorEmail,
       this.props.commitLookup
     )
 
@@ -941,6 +988,16 @@ export class CommitGraphSidebar extends React.Component<
         tag.toLowerCase().startsWith(filterTextLowerCase)
       ) ||
       commit.sha.toLowerCase().startsWith(filterTextLowerCase)
+    )
+  }
+
+  private commitIsIncludedByAuthor(
+    commit: Commit | undefined,
+    authorEmailLowercase?: string
+  ) {
+    return (
+      !authorEmailLowercase ||
+      commit?.author.email.toLowerCase() === authorEmailLowercase
     )
   }
 
@@ -1163,7 +1220,8 @@ export class CommitGraphSidebar extends React.Component<
     this.setState({ commitGraphViewMode: CommitHistoryViewMode.List })
     void this.props.dispatcher.setCommitSearchQuery(
       this.props.repository,
-      this.props.compareState.commitSearchQuery
+      this.props.compareState.commitSearchQuery,
+      this.props.compareState.commitSearchAuthorEmail
     )
   }
 
@@ -1316,13 +1374,14 @@ export class CommitGraphSidebar extends React.Component<
     })
   }
 
-  private onCommitSearchQueryChanged = async (text: string) => {
+  private onCommitQuery = async (text: string, authorEmail: string | null) => {
     if (this.state.commitGraphViewMode === CommitHistoryViewMode.Graph) {
       this.props.dispatcher.updateCompareForm(this.props.repository, {
         commitSearchQuery: text,
+        commitSearchAuthorEmail: authorEmail,
       })
 
-      if (text.length > 0) {
+      if (text.length > 0 || authorEmail !== null) {
         void this.props.dispatcher.commitGraph_loadNextCommitBatch(
           this.props.repository
         )
@@ -1334,9 +1393,24 @@ export class CommitGraphSidebar extends React.Component<
     this.setState({ isSearching: true })
     await this.props.dispatcher.setCommitSearchQuery(
       this.props.repository,
-      text
+      text,
+      authorEmail
     )
     this.setState({ isSearching: false })
+  }
+
+  private onCommitSearchQueryChanged = async (text: string) => {
+    await this.onCommitQuery(
+      text,
+      this.props.compareState.commitSearchAuthorEmail
+    )
+  }
+
+  private onCommitSearchAuthorChanged = async (authorEmail: string | null) => {
+    await this.onCommitQuery(
+      this.props.compareState.commitSearchQuery,
+      authorEmail
+    )
   }
 
   private onCreateTag = (targetCommitSha: string) => {

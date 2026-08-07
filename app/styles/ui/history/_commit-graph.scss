@@ -1,6 +1,92 @@
 @import '../../mixins';
 
 #compare-view {
+  .filter-box-container {
+    display: flex;
+    align-items: center;
+
+    .filter-popover {
+      min-width: 260px;
+
+      .filter-popover-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h3 {
+          margin: 0;
+        }
+      }
+
+      .filter-options {
+        margin: var(--spacing) 0;
+      }
+
+      .popover-content {
+        padding: var(--spacing) var(--spacing) 0;
+      }
+
+      @include close-button;
+
+      .close {
+        margin: 0;
+      }
+    }
+
+    .filter-button {
+      display: inline-flex;
+      position: relative;
+      align-items: center;
+      justify-content: space-between;
+      border-right: 0;
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      color: var(--text-color);
+      font-weight: var(--font-weight-semibold);
+      padding-right: var(--spacing-half);
+
+      &.active span:first-child {
+        color: var(--box-selected-active-background-color);
+      }
+
+      .active-badge {
+        position: absolute;
+        top: 4px;
+        right: 18px;
+
+        .badge-bg {
+          display: block;
+          padding: 1px;
+          border-radius: 50%;
+          background-color: var(--secondary-button-background);
+        }
+
+        .badge {
+          display: block;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: var(--box-selected-active-background-color);
+        }
+      }
+    }
+
+    .fancy-text-box-component {
+      flex-grow: 1;
+      height: var(--text-field-height);
+      border: var(--contrast-border);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+
+      &.focused {
+        border-color: var(--focus-color);
+      }
+
+      .fancy-octicon,
+      .text-box-component input {
+        height: 100%;
+      }
+    }
+  }
+
   .commitGraph-view-toolbar {
     display: flex;
     align-items: stretch;
