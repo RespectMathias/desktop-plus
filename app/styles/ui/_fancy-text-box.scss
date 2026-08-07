@@ -4,6 +4,7 @@
   background: var(--fluent-control-fill-default);
   display: flex;
   align-items: center;
+  height: var(--text-field-height);
   min-width: 0;
   border: 1px solid var(--fluent-control-stroke);
   border-radius: var(--control-corner-radius);
@@ -13,7 +14,8 @@
     flex: 0 0 var(--text-field-height);
     align-items: center;
     justify-content: center;
-    height: var(--text-field-height);
+    align-self: stretch;
+    height: auto;
     width: var(--text-field-height);
     padding: 0;
     border-right: none;
@@ -37,6 +39,8 @@
   }
 
   input {
+    height: 100%;
+    min-height: 0;
     min-width: 0;
     border-left: none;
     border-radius: 0 var(--control-corner-radius) var(--control-corner-radius) 0;
