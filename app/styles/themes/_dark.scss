@@ -57,6 +57,12 @@ body.theme-dark {
   --mica-surface-fill: #111111;
   --mica-raised-fill: #141414;
   --mica-overlay-fill: #191919;
+  --repository-canvas-background-color: #0a0a0a;
+  --repository-sidebar-background-color: #000000;
+  --repository-sidebar-control-background-color: #0a0a0a;
+  --repository-sidebar-hover-background-color: #131313;
+  --repository-sidebar-selected-background-color: #111111;
+  --repository-sidebar-border-color: #141414;
   --mica-glass-blur: 16px;
   --mica-glass-saturation: 1.08;
   --mica-elevated-border: #ffffff1a;
@@ -349,73 +355,74 @@ body.theme-dark {
    * Diff view
    */
 
-  --diff-text-color: var(--text-color);
-  --diff-alt-text-color: #{darken($gray-100, 20%)};
-  --diff-border-color: #{$gray-800};
-  --diff-gutter-color: #{$gray-800};
-  --diff-gutter-background-color: #{darken($gray-900, 3%)};
+  --diff-background-color: #101214;
+  --diff-text-color: #e6e8eb;
+  --diff-alt-text-color: #aeb4bf;
+  --diff-border-color: #2a3038;
+  --diff-gutter-color: #343b46;
+  --diff-gutter-background-color: #121519;
 
-  --diff-line-number-color: var(--text-secondary-color);
+  --diff-line-number-color: #8f98a5;
   --diff-line-number-column-width: 50px;
 
-  --diff-selected-background-color: #{$blue-700};
-  --diff-selected-border-color: #{$blue-600};
-  --diff-selected-gutter-color: #{$blue-600};
-  --diff-selected-text-color: var(--text-color);
+  --diff-selected-background-color: #244568;
+  --diff-selected-border-color: #6ea8dc;
+  --diff-selected-gutter-color: #6ea8dc;
+  --diff-selected-text-color: #f5f7fa;
 
-  --diff-add-background-color: #{darken($green-900, 3%)};
-  --diff-add-border-color: #{darken($green-900, 2%)};
-  --diff-add-gutter-color: #{darken($green-900, 2%)};
-  --diff-add-gutter-background-color: #{darken($green-900, 8%)};
-  --diff-add-inner-background-color: #{$green-600};
+  --diff-add-background-color: #14251d;
+  --diff-add-border-color: #2d4b3a;
+  --diff-add-gutter-color: #365b46;
+  --diff-add-gutter-background-color: #193126;
+  --diff-add-inner-background-color: #27563f;
   --diff-add-text-color: var(--diff-text-color);
 
-  --diff-delete-background-color: #{darken($red-900, 15%)};
-  --diff-delete-border-color: #{darken($red-900, 10%)};
-  --diff-delete-gutter-color: #{darken($red-900, 10%)};
-  --diff-delete-gutter-background-color: #{darken($red-900, 20%)};
-  --diff-delete-inner-background-color: #{$red-700};
-  --diff-delete-text-color: #{$red-100};
+  --diff-delete-background-color: #291a1f;
+  --diff-delete-border-color: #4d3038;
+  --diff-delete-gutter-color: #5b3842;
+  --diff-delete-gutter-background-color: #351f27;
+  --diff-delete-inner-background-color: #633943;
+  --diff-delete-text-color: #eadfe1;
 
-  --diff-hunk-background-color: #{darken($gray-900, 3%)};
-  --diff-hunk-border-color: #{lighten($gray-900, 3%)};
-  --diff-hunk-gutter-color: #{lighten($gray-900, 3%)};
-  --diff-hunk-gutter-background-color: #{darken($gray-900, 6%)};
-  --diff-hunk-text-color: var(--text-secondary-color);
+  --diff-hunk-background-color: #1a2029;
+  --diff-hunk-border-color: #303b49;
+  --diff-hunk-gutter-color: #3a4655;
+  --diff-hunk-gutter-background-color: #171d25;
+  --diff-hunk-text-color: #aebbd0;
 
-  --diff-hover-background-color: #{$blue-500};
-  --diff-hover-border-color: #{$blue-400};
-  --diff-hover-gutter-color: #{$blue-400};
+  --diff-hover-background-color: #263b52;
+  --diff-hover-border-color: #6a9bc8;
+  --diff-hover-gutter-color: #6a9bc8;
   --diff-hover-text-color: var(--diff-text-color);
 
-  --diff-add-hover-background-color: #{$green-900};
-  --diff-add-hover-border-color: #{$green-700};
-  --diff-add-hover-gutter-color: #{$green-700};
+  --diff-add-hover-background-color: #1b382a;
+  --diff-add-hover-border-color: #47745a;
+  --diff-add-hover-gutter-color: #47745a;
   --diff-add-hover-text-color: var(--text-color);
 
-  --diff-delete-hover-background-color: #{$red-800};
-  --diff-delete-hover-border-color: #{$red-700};
-  --diff-delete-hover-gutter-color: #{$red-700};
+  --diff-delete-hover-background-color: #40252d;
+  --diff-delete-hover-border-color: #80505d;
+  --diff-delete-hover-gutter-color: #80505d;
   --diff-delete-hover-text-color: var(--text-color);
 
-  --diff-empty-row-background-color: #{darken($gray-900, 1%)};
+  --diff-empty-row-background-color: var(--diff-background-color);
   --diff-empty-row-gutter-background-color: var(--diff-gutter-background-color);
-  --diff-empty-hunk-handle: #{$gray-700};
+  --diff-empty-hunk-handle: #343b46;
 
   // Syntax highlighting text colors
-  --syntax-variable-color: #{$purple-300};
-  --syntax-alt-variable-color: #{$blue-300};
-  --syntax-keyword-color: #{$red-300};
-  --syntax-atom-color: #{$blue-300};
-  --syntax-string-color: #{$orange-300};
-  --syntax-qualifier-color: #{$purple-300};
-  --syntax-type-color: #{$red-300};
-  --syntax-comment-color: #{$gray-400};
-  --syntax-tag-color: #{$green-400};
-  --syntax-attribute-color: #{$purple-300};
-  --syntax-link-color: #{$blue-300};
-  --syntax-header-color: #{$red-300};
-  --syntax-quote-color: #{$green-400};
+  --syntax-variable-color: #c4a7d9;
+  --syntax-alt-variable-color: #a9b9d0;
+  --syntax-keyword-color: #d8919d;
+  --syntax-atom-color: #8fb9df;
+  --syntax-string-color: #c8b98e;
+  --syntax-qualifier-color: #c4a7d9;
+  --syntax-type-color: #d8919d;
+  --syntax-comment-color: #87909c;
+  --syntax-tag-color: #8fc3a2;
+  --syntax-attribute-color: #c4a7d9;
+  --syntax-link-color: #8fb9df;
+  --syntax-header-color: #a6b8e8;
+  --syntax-quote-color: #8fc3a2;
 
   // Colors for form errors
   --error-color: #{$red};
