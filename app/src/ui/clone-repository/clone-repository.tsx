@@ -537,9 +537,10 @@ export class CloneRepository extends React.Component<
   ) => {
     const defaultDir = await getDefaultDirForAccount(account)
     const { lastParsedIdentifier } = this.getTabState(tab)
-    const path = lastParsedIdentifier
-      ? Path.join(defaultDir, lastParsedIdentifier.name)
-      : defaultDir
+    const safeName = lastParsedIdentifier
+      ? sanitizeCloneName(lastParsedIdentifier.name)
+      : null
+    const path = safeName ? Path.join(defaultDir, safeName) : defaultDir
     this.setTabState({ path }, tab, this.validatePath)
   }
 
@@ -837,6 +838,7 @@ export class CloneRepository extends React.Component<
     const parsed = parseRepositoryIdentifier(url)
     const tabState = this.getSelectedTabState()
     const lastParsedIdentifier = tabState.lastParsedIdentifier
+    const safeName = parsed ? sanitizeCloneName(parsed.name) : null
 
     // If there is no path yet, just update the url
     if (tabState.path === null) {
