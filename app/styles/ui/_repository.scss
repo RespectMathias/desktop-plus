@@ -6,7 +6,7 @@
   flex-direction: row;
   flex: 1 1 auto;
   border-top: 1px solid var(--fluent-divider-stroke);
-  background: var(--repository-canvas-background-color);
+  background: var(--mica-surface-fill);
   height: 100%;
   min-height: 0;
 
@@ -21,31 +21,14 @@
   &-sidebar {
     display: flex;
     flex-direction: column;
-    --box-background-color: var(--repository-sidebar-background-color);
-    --box-alt-background-color: var(--repository-sidebar-control-background-color);
-    background-color: var(--repository-sidebar-background-color);
+    background-color: var(--mica-surface-fill);
     background-image: var(--surface-grain);
     background-repeat: repeat;
     background-size: var(--surface-grain-size);
-    border-right: 1px solid var(--repository-sidebar-border-color);
+    border-right: 1px solid var(--fluent-divider-stroke);
 
     .tab-bar {
       flex-shrink: 0;
-      background: var(--repository-sidebar-background-color);
-
-      &-item {
-        background: var(--repository-sidebar-background-color);
-      }
-
-      &.tabs &-item:not(.selected):hover {
-        background: var(--repository-sidebar-hover-background-color);
-      }
-    }
-
-    .changes-list-container .header,
-    .commit-message-component,
-    .no-changes-filtered {
-      background: var(--repository-sidebar-background-color);
     }
 
     .panel {
