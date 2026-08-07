@@ -1025,8 +1025,14 @@ export interface ICompareState {
   /** The search query in the history tab (commit list) */
   readonly commitSearchQuery: string
 
+  /** The author email selected to filter history commits, if any */
+  readonly commitSearchAuthorEmail: string | null
+
   /** The SHA associated with the most recent history state */
   readonly tip: string | null
+
+  /** The SHAs matching the search query before author filtering */
+  readonly prevFilteredHistoryCommitSHAs: ReadonlyArray<string>
 
   /** The SHAs of commits to render in the compare list */
   readonly filteredHistoryCommitSHAs: ReadonlyArray<string>
@@ -1086,6 +1092,9 @@ export interface ICompareFormUpdate {
 
   /** The updated commit search query to set */
   readonly commitSearchQuery: string
+
+  /** The updated author email to filter history commits */
+  readonly commitSearchAuthorEmail: string | null
 
   /** Thew new state of the branches list */
   readonly showBranchList: boolean

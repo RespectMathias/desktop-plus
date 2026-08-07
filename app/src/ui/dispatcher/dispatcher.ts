@@ -300,9 +300,10 @@ export class Dispatcher {
   /** Update the commit search filter text. */
   public setCommitSearchQuery(
     repository: Repository,
-    text: string
+    text: string,
+    authorEmail: string | null
   ): Promise<void> {
-    return this.appStore._updateCommitSearchQuery(repository, text)
+    return this.appStore._updateCommitSearchQuery(repository, text, authorEmail)
   }
 
   /** Load the changed files for the current history selection. */
