@@ -29,6 +29,7 @@
   .compare-form {
     background: var(--mica-surface-fill);
     flex: initial;
+    min-width: 0;
     padding: var(--spacing-half);
     border-bottom: var(--base-border);
   }

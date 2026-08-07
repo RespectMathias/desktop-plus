@@ -4,20 +4,28 @@
   background: var(--fluent-control-fill-default);
   display: flex;
   align-items: center;
+  min-width: 0;
   border: 1px solid var(--fluent-control-stroke);
   border-radius: var(--control-corner-radius);
 
   .fancy-octicon {
+    display: flex;
+    flex: 0 0 var(--text-field-height);
+    align-items: center;
+    justify-content: center;
     height: var(--text-field-height);
-    width: 18px;
-    svg {
-      width: 100%;
-    }
-    padding: var(--spacing-half) 0 var(--spacing-half) 7px;
+    width: var(--text-field-height);
+    padding: 0;
     border-right: none;
     border-radius: var(--control-corner-radius) 0 0 var(--control-corner-radius);
     opacity: 0.7;
     transition: opacity var(--motion-fast) var(--motion-easing);
+
+    svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
   }
 
   &.focused {
@@ -29,6 +37,7 @@
   }
 
   input {
+    min-width: 0;
     border-left: none;
     border-radius: 0 var(--control-corner-radius) var(--control-corner-radius) 0;
     border: none;
