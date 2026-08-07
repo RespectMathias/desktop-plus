@@ -16,11 +16,13 @@ body > .tooltip,
 
   background-color: var(--tooltip-background-color);
   color: var(--tooltip-color);
-  border: 1px solid var(--fluent-flyout-stroke);
-  border-radius: var(--overlay-corner-radius);
+  border: 1px solid var(--mica-elevated-border);
+  border-radius: var(--control-corner-radius);
   padding: 5px 10px 6px;
   font-size: var(--font-size);
-  box-shadow: 0 8px 24px var(--tooltip-shadow-color);
+  box-shadow: var(--mica-elevated-shadow);
+  -webkit-backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
+  backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
 
   .tooltip-content {
     overflow: auto;
@@ -269,6 +271,13 @@ body > .tooltip,
       margin-right: var(--spacing-half);
       font-weight: bold;
     }
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  body > .tooltip,
+  .tooltip-host > .tooltip {
+    background-color: var(--mica-overlay-fill);
   }
 }
 

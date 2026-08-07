@@ -17,10 +17,22 @@
   }
 
   .foldout {
-    background: var(--fluent-solid-background-card);
+    background: var(--mica-surface-fill);
     color: var(--text-color);
-    border: 1px solid var(--fluent-flyout-stroke);
-    border-radius: var(--overlay-corner-radius);
-    box-shadow: var(--base-box-shadow);
+  }
+}
+
+#desktop-app-toolbar .toolbar-dropdown.multi-option-style #foldout-container .foldout {
+  background: var(--fluent-layer-on-mica-base-alt-fill-default);
+  border: 1px solid var(--mica-elevated-border);
+  border-radius: var(--overlay-corner-radius);
+  box-shadow: var(--mica-elevated-shadow);
+  -webkit-backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
+  backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #desktop-app-toolbar .toolbar-dropdown.multi-option-style #foldout-container .foldout {
+    background: var(--mica-overlay-fill);
   }
 }

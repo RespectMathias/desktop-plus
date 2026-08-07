@@ -11,13 +11,13 @@
 
   @include darwin {
     height: var(--darwin-title-bar-height);
-    background: var(--fluent-solid-background-secondary);
+    background: var(--background-color);
     border-bottom: 1px solid var(--fluent-divider-stroke);
   }
 
   @mixin custom-title-bar {
     height: var(--win32-title-bar-height);
-    background: var(--win32-title-bar-background-color);
+    background: var(--background-color);
     border-bottom: 1px solid var(--fluent-divider-stroke);
 
     .app-icon {
@@ -110,11 +110,11 @@
       // Close button is a special case, it needs to be red
       // on hover and slightly lighter red on active.
       &.close:hover {
-        background-color: #c42b1c;
+        background-color: #e81123;
         color: #ffffff;
 
         &:active {
-          background-color: #8f2016;
+          background-color: #bf0f1d;
 
           // Immediate feedback when clicking
           transition: none;
@@ -136,8 +136,8 @@
   }
 
   @include win32 {
-    background: transparent;
-    border-bottom: none;
+    background: var(--background-color);
+    border-bottom: 1px solid var(--fluent-divider-stroke);
   }
 
   position: fixed;
@@ -155,14 +155,14 @@
       }
 
       &.close:hover {
-        background-color: #c42b1c;
+        background-color: #e81123;
 
         svg {
           fill: #ffffff;
         }
 
         &:active {
-          background-color: #8f2016;
+          background-color: #bf0f1d;
         }
       }
     }

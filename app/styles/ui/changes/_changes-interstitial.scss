@@ -14,6 +14,7 @@
 
     .text {
       flex-grow: 1;
+      min-width: 0;
       margin-right: var(--spacing-double);
 
       h1 {
@@ -28,13 +29,21 @@
       }
     }
 
-    .blankslate-image {
-      flex: 0;
-      height: 70px;
-      width: 73px;
-      min-width: 70px;
-      min-height: 73px;
+    .no-local-changes-illustration {
+      flex: 0 0 auto;
+      width: 96px;
+      height: 72px;
       align-self: flex-end;
+
+      img {
+        display: block;
+        width: 96px;
+        height: 72px;
+      }
+
+      .no-local-changes-illustration-dark {
+        display: none;
+      }
     }
 
     margin-bottom: var(--spacing-double);
@@ -43,6 +52,8 @@
   .content {
     width: 100%;
     max-width: 600px;
+    min-width: 0;
+    container-type: inline-size;
   }
 
   .pull-request-action {
@@ -60,8 +71,18 @@
 
   /** Hide the blankslate image at high zoom levels **/
   @media screen and (max-width: 550px) {
-    .header .blankslate-image {
+    .interstitial-header .no-local-changes-illustration {
       display: none;
     }
+  }
+}
+
+body.theme-dark .no-local-changes-illustration {
+  .no-local-changes-illustration-light {
+    display: none;
+  }
+
+  .no-local-changes-illustration-dark {
+    display: block;
   }
 }

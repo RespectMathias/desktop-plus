@@ -119,7 +119,6 @@ import { ReleaseNotes } from './release-notes'
 import { DeletePullRequest } from './delete-branch/delete-pull-request-dialog'
 import { CommitConflictsWarning } from './merge-conflicts'
 import { AppTheme } from './app-theme'
-import { ApplicationTheme } from './lib/application-theme'
 import { RepositoryStateCache } from '../lib/stores/repository-state-cache'
 import { PopupType, Popup } from '../models/popup'
 import { OversizedFiles } from './changes/oversized-files-warning'
@@ -1627,23 +1626,10 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     const showAppIcon = !__DARWIN__ && !this.state.showWelcomeFlow
-    const inWelcomeFlow = this.state.showWelcomeFlow
-    const inNoRepositoriesView = this.inNoRepositoriesViewState()
-
-    // The light title bar style should only be used while we're in
-    // the welcome flow as well as the no-repositories blank slate
-    // on macOS. The latter case has to do with the application menu
-    // being part of the title bar on Windows. We need to render
-    // the app menu in the no-repositories blank slate on Windows but
-    // the menu doesn't support the light style at the moment so we're
-    // forcing it to use the dark style.
-    const titleBarStyle =
-      inWelcomeFlow || (__DARWIN__ && inNoRepositoriesView) ? 'light' : 'dark'
-
     return (
       <TitleBar
         showAppIcon={showAppIcon}
-        titleBarStyle={titleBarStyle}
+        titleBarStyle="dark"
         windowState={this.state.windowState}
         windowZoomFactor={this.state.windowZoomFactor}
       >
@@ -4473,10 +4459,6 @@ export class App extends React.Component<IAppProps, IAppState> {
       }
     )
 
-    const currentTheme = this.state.showWelcomeFlow
-      ? ApplicationTheme.Light
-      : this.state.currentTheme
-
     const currentTabSize = this.state.selectedTabSize
     const appStyle = {
       tabSize: currentTabSize,
@@ -4491,7 +4473,7 @@ export class App extends React.Component<IAppProps, IAppState> {
 
     return (
       <div id="desktop-app-chrome" className={className} style={appStyle}>
-        <AppTheme theme={currentTheme} />
+        <AppTheme theme={this.state.currentTheme} />
         {this.renderTitlebar()}
         {this.state.showWelcomeFlow
           ? this.renderWelcomeFlow()

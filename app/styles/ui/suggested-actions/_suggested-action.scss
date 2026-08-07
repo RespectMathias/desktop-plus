@@ -1,6 +1,8 @@
 .suggested-action {
-  border: var(--base-border);
+  min-width: 0;
+  border: 1px solid var(--fluent-card-stroke);
   border-bottom: 0;
+  background: var(--fluent-card-fill);
   padding: var(--spacing-double);
   display: flex;
   flex-direction: row;
@@ -26,6 +28,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    min-width: 0;
     margin-right: var(--spacing-double);
   }
 
@@ -73,8 +76,7 @@
     flex-shrink: 0;
   }
 
-  /** Switch to a vertical layout at 1.25x zoom and above **/
-  @media screen and (max-width: 768px) {
+  @container (max-width: 520px) {
     flex-direction: column;
     align-items: flex-start;
 
