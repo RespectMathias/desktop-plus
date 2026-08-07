@@ -32,11 +32,15 @@ describe('helper side-effect surfaces', () => {
   it('applies theme classes, updates color scheme, and clears theme classes on unmount', async () => {
     const electron = await import('electron')
     const previousSend = electron.ipcRenderer.send
+    const previousInvoke = electron.ipcRenderer.invoke
+    const previousRemoveListener = electron.ipcRenderer.removeListener
     const sends: Array<[string, string]> = []
 
     electron.ipcRenderer.send = (channel: string, value: string) => {
       sends.push([channel, value])
     }
+    electron.ipcRenderer.invoke = async () => null
+    electron.ipcRenderer.removeListener = () => electron.ipcRenderer
 
     try {
       document.body.style.setProperty('--background-color', 'rgb(1, 2, 3)')
@@ -64,6 +68,8 @@ describe('helper side-effect surfaces', () => {
       assert.equal(document.body.classList.contains('theme-light'), false)
     } finally {
       electron.ipcRenderer.send = previousSend
+      electron.ipcRenderer.invoke = previousInvoke
+      electron.ipcRenderer.removeListener = previousRemoveListener
     }
   })
 

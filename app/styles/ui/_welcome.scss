@@ -31,7 +31,7 @@
   --button-height: calc(var(--welcome-item-height) * var(--welcome-scale));
   --radio-control-radius: calc(13px * var(--welcome-scale));
 
-  --welcome-content-width: calc(500px * var(--welcome-scale));
+  --welcome-content-width: calc(548px * var(--welcome-scale));
   --avatar-size: calc(16px * var(--welcome-scale));
 
   align-items: stretch;
@@ -295,7 +295,7 @@
 }
 
 .welcome-right {
-  background-color: #28373b;
+  background-color: var(--fluent-solid-background-secondary);
   justify-content: center;
   align-items: center;
   display: flex;

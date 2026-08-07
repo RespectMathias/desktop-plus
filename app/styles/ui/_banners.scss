@@ -5,7 +5,7 @@
 @import 'banners/os-not-supported';
 
 .banner {
-  $banner-height: 30px;
+  $banner-height: 32px;
   height: $banner-height;
   position: relative;
   display: flex;
@@ -14,7 +14,10 @@
   align-content: center;
   align-items: center;
   justify-content: space-between;
-  padding-left: var(--spacing);
+  padding: 0 var(--spacing-double);
+  background: var(--fluent-caution-background);
+  border-bottom: 1px solid var(--fluent-card-stroke);
+  color: var(--text-color);
 
   // Prevents the notification banner from decreasing its height
   // when a large diff is rendered.
@@ -32,7 +35,6 @@
     flex-shrink: 0;
     flex-grow: 0;
 
-    margin-right: var(--spacing);
     margin-left: var(--spacing);
 
     &:focus {
@@ -40,14 +42,16 @@
     }
 
     button {
-      width: 16px;
-      height: 16px;
+      width: 24px;
+      height: 24px;
+      border-radius: var(--control-corner-radius);
       border: 0;
       padding: 0;
       color: var(--text-secondary-color);
       background: transparent;
 
       &:hover {
+        background: var(--fluent-subtle-fill-hover);
         color: var(--text-color);
       }
     }
@@ -61,7 +65,7 @@
     &.banner-enter-active {
       height: $banner-height;
       opacity: 1;
-      transition: height 300ms ease-in-out, opacity 200ms ease-in 300ms;
+      transition: height var(--motion-slow) var(--motion-easing), opacity var(--motion-normal) ease-in var(--motion-slow);
     }
   }
 
@@ -72,7 +76,7 @@
     &.banner-exit-active {
       height: 0px;
       opacity: 0;
-      transition: height 225ms ease-in-out 175ms, opacity 175ms ease-in;
+      transition: height var(--motion-normal) var(--motion-easing), opacity var(--motion-normal) ease-in;
     }
   }
 

@@ -228,6 +228,13 @@ export function onNativeThemeUpdated(eventHandler: () => void) {
   ipcRenderer.on('native-theme-updated', eventHandler)
 }
 
+export function onAccentColorChanged(eventHandler: (color: string) => void) {
+  const listener = (_: Electron.IpcRendererEvent, color: string) =>
+    eventHandler(color)
+  ipcRenderer.on('accent-color-changed', listener)
+  return () => ipcRenderer.removeListener('accent-color-changed', listener)
+}
+
 /** Subscribes to the "show installing update dialog" event originating from the
  * main process */
 export function onShowInstallingUpdate(eventHandler: () => void) {
@@ -239,6 +246,7 @@ export const setNativeThemeSource = sendProxy('set-native-theme-source', 1)
 
 /** Tell the main process to obtain wether the native theme uses dark colors */
 export const shouldUseDarkColors = invokeProxy('should-use-dark-colors', 0)
+export const getAccentColor = invokeProxy('get-accent-color', 0)
 
 /** Tell the main process to minimize the window */
 export const minimizeWindow = sendProxy('minimize-window', 0)

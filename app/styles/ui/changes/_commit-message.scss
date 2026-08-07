@@ -2,13 +2,13 @@
 
 /** A React component holding the commit message entry */
 .commit-message-component {
-  border-top: 1px solid var(--box-border-color);
+  border-top: 1px solid var(--fluent-divider-stroke);
   flex-direction: column;
   flex-shrink: 0;
   margin-top: auto;
 
   display: flex;
-  background-color: var(--box-alt-background-color);
+  background-color: var(--fluent-solid-background-secondary);
 
   padding: var(--spacing);
 
@@ -22,9 +22,8 @@
       @include ellipsis;
       padding: var(--spacing-half) var(--spacing);
 
-      border: var(--base-border);
-      border-radius: var(--button-border-radius);
-      border-color: var(--secondary-button-border-color);
+      border: 1px solid var(--fluent-control-stroke);
+      border-radius: var(--control-corner-radius);
     }
 
     &.with-button {
@@ -245,16 +244,17 @@
   }
 
   .description-focus-container {
-    border: var(--contrast-border);
-    border-radius: var(--border-radius);
-    background: var(--background-color);
+    border: 1px solid var(--fluent-control-stroke);
+    border-radius: var(--control-corner-radius);
+    background: var(--fluent-control-fill-default);
     // Fake that we're a text-box
     cursor: text;
 
     &.focus-within {
       outline: none;
-      border-color: var(--focus-color);
-      box-shadow: 0 0 0 1px var(--text-field-focus-shadow-color);
+      border-color: var(--system-accent-color);
+      background: var(--fluent-control-fill-input-active);
+      box-shadow: var(--focus-ring);
     }
 
     .description-field.with-overflow {
@@ -291,7 +291,7 @@
       display: flex;
 
       padding: var(--spacing);
-      background: var(--box-background-color);
+      background: var(--fluent-control-fill-default);
 
       border-bottom-left-radius: var(--border-radius);
       border-bottom-right-radius: var(--border-radius);
@@ -306,7 +306,7 @@
       }
 
       &.disabled {
-        background: var(--box-alt-background-color);
+        background: var(--fluent-control-fill-disabled);
       }
 
       .separator {

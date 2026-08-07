@@ -12,6 +12,14 @@
 
     & > input {
       margin: 0;
+      width: 20px;
+      height: 20px;
+      accent-color: var(--system-accent-color);
+
+      &:focus-visible {
+        outline: none;
+        box-shadow: var(--focus-ring);
+      }
     }
 
     > span {

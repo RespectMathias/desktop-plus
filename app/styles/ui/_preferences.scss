@@ -18,7 +18,8 @@
   .preferences-container {
     display: flex;
     .tab-container {
-      border-left: var(--base-border);
+      border-left: 1px solid var(--fluent-divider-stroke);
+      background: var(--fluent-solid-background-card);
       flex: 1;
       // Without this, a tab whose content has long unbroken text can
       // grow past the dialog's max-width and break out the right edge.
@@ -35,7 +36,7 @@
 
     .advanced-section {
       &:not(:last-child) {
-        margin-bottom: var(--spacing);
+        margin-bottom: var(--spacing-double);
       }
 
       .checkbox-component:not(:last-child) {
@@ -181,8 +182,8 @@
         }
 
         > span {
-          border-radius: var(--border-radius);
-          border: var(--base-border);
+          border-radius: var(--overlay-corner-radius);
+          border: 1px solid var(--fluent-card-stroke);
           float: left;
           overflow: hidden;
           padding-bottom: var(--spacing-half);
@@ -263,24 +264,24 @@
   .swatch-box {
     width: 31%;
     float: left;
-    background-color: rgb(228, 228, 228);
-    border: 1px solid black;
-    color: black;
+    background-color: var(--fluent-control-fill-default);
+    border: 1px solid var(--fluent-control-stroke);
+    color: var(--text-color);
     text-align: center;
     margin: 1%;
     padding: 1px;
-    border-radius: 5px;
+    border-radius: var(--control-corner-radius);
   }
 
   .theme-option-swatch {
     display: inline-block;
-    border-radius: 5px;
-    border: 1px solid black;
+    border-radius: var(--control-corner-radius);
+    border: 1px solid var(--fluent-control-stroke);
     width: 100%;
     height: 50px;
     &:hover {
       border-width: 2px;
-      outline: 1px solid rgb(228, 228, 228);
+      outline: 1px solid var(--fluent-focus-outer);
     }
     margin: auto;
   }

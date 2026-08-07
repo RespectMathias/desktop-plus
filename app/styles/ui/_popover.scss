@@ -2,16 +2,16 @@
   font-size: var(--font-size);
   font-family: var(--font-family-sans-serif);
 
-  background: var(--background-color);
+  background: var(--fluent-solid-background-card);
   color: var(--text-color);
-  border-radius: var(--border-radius);
-  border: var(--base-border);
+  border-radius: var(--overlay-corner-radius);
+  border: 1px solid var(--fluent-flyout-stroke);
 
   box-shadow: var(--base-box-shadow);
 
   .popover-content {
-    padding: var(--spacing-double);
-    border-radius: var(--border-radius);
+    padding: 15px 16px 17px;
+    border-radius: var(--overlay-corner-radius);
     max-height: var(--available-height);
     max-width: var(--available-width);
   }
@@ -81,7 +81,7 @@
   }
 
   .popover-tip-background {
-    border-right-color: var(--background-color);
+    border-right-color: var(--fluent-solid-background-card);
   }
 
   .popover-tip-border {

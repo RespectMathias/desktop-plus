@@ -48,13 +48,13 @@ dialog {
   --dialog-icon-stop: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12 7a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0112 7zm0 10a1 1 0 100-2 1 1 0 000 2z"></path><path fill-rule="evenodd" d="M7.328 1.47a.75.75 0 01.53-.22h8.284a.75.75 0 01.53.22l5.858 5.858c.141.14.22.33.22.53v8.284a.75.75 0 01-.22.53l-5.858 5.858a.75.75 0 01-.53.22H7.858a.75.75 0 01-.53-.22L1.47 16.672a.75.75 0 01-.22-.53V7.858a.75.75 0 01.22-.53L7.328 1.47zm.84 1.28L2.75 8.169v7.662l5.419 5.419h7.662l5.419-5.418V8.168L15.832 2.75H8.168z"></path></svg>');
   --dialog-icon-size: 24px;
 
-  border: var(--base-border);
+  border: 1px solid var(--fluent-surface-stroke);
   box-shadow: var(--base-box-shadow);
   padding: 0;
-  border-radius: var(--border-radius);
+  border-radius: var(--overlay-corner-radius);
 
   color: var(--text-color);
-  background: var(--background-color);
+  background: var(--fluent-solid-background-card);
 
   // This resets the properties we animate in the transition group
   // such that if there's ever a race condition between the JS timing
@@ -63,8 +63,8 @@ dialog {
   transform: scale(1);
   opacity: 1;
 
-  min-width: 400px;
-  max-width: 600px;
+  min-width: 320px;
+  max-width: 548px;
 
   .secondary-text {
     color: var(--text-secondary-color);
@@ -91,7 +91,7 @@ dialog {
   &.modal {
     &-enter {
       opacity: 1;
-      transform: scale(0.75);
+      transform: scale(0.96);
       pointer-events: none;
 
       &::backdrop {
@@ -102,7 +102,7 @@ dialog {
     &-enter-active {
       opacity: 1;
       transform: scale(1);
-      transition: transform 250ms var(--easing-ease-out-back);
+      transition: transform var(--motion-slow) var(--motion-easing);
 
       &::backdrop {
         opacity: 1;
@@ -122,8 +122,8 @@ dialog {
 
     &-exit-active {
       opacity: 0.01;
-      transform: scale(0.25);
-      transition: opacity 100ms ease-in, transform 100ms var(--easing-ease-in-back);
+      transform: scale(0.96);
+      transition: opacity var(--motion-fast) ease-in, transform var(--motion-fast) var(--motion-easing);
 
       &::backdrop {
         opacity: 0.01;
@@ -162,13 +162,14 @@ dialog {
   }
 
   .dialog-header {
-    height: 50px;
-    border-bottom: var(--base-border);
+    min-height: 56px;
+    height: auto;
+    border-bottom: 1px solid var(--fluent-card-stroke);
 
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: var(--spacing-double);
+    padding: var(--spacing-double) calc(var(--spacing) * 3);
 
     svg.icon {
       flex-shrink: 0;

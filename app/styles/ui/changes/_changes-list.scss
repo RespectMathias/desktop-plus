@@ -12,10 +12,10 @@
   min-height: 100px;
 
   .header {
-    background: var(--box-alt-background-color);
-    border-bottom: 1px solid var(--box-border-color);
+    background: var(--fluent-solid-background-secondary);
+    border-bottom: 1px solid var(--fluent-divider-stroke);
     padding: 0 var(--spacing);
-    height: 29px;
+    height: var(--list-item-height);
     flex: 0 0 auto;
   }
 
@@ -90,7 +90,7 @@
         display: flex;
         align-items: center;
         margin-bottom: var(--spacing-half);
-        transition: all 0.3s ease-out;
+        transition: all var(--motion-normal) var(--motion-easing);
 
         input {
           border-radius: 0 var(--border-radius) var(--border-radius) 0;
@@ -180,7 +180,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 29px;
+  min-height: var(--control-height);
   padding: 0 var(--spacing);
 
   // Chrome on Windows ignores the body element
@@ -193,7 +193,7 @@
   background-color: var(--secondary-button-background);
 
   border: none;
-  border-top: var(--base-border);
+  border-top: 1px solid var(--fluent-divider-stroke);
   box-shadow: none;
   z-index: 0;
 
@@ -203,7 +203,7 @@
 
   &:hover,
   &:focus {
-    background-color: var(--box-selected-background-color);
+    background-color: var(--fluent-subtle-fill-hover);
   }
 
   &.selected,
@@ -236,13 +236,13 @@
 }
 
 .stashed-changes-section {
-  border-top: var(--base-border);
+  border-top: 1px solid var(--fluent-divider-stroke);
 
   .stashed-changes-header {
     display: flex;
     align-items: center;
     padding: var(--spacing-half) var(--spacing);
-    background-color: var(--box-alt-background-color);
+    background-color: var(--fluent-solid-background-secondary);
     font-weight: var(--font-weight-semibold);
 
     .stack-icon {

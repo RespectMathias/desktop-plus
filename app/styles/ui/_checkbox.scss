@@ -5,6 +5,28 @@
 
   input {
     margin: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--fluent-control-strong-stroke);
+    border-radius: var(--control-corner-radius);
+    background: var(--fluent-control-fill-default);
+    accent-color: var(--system-accent-color);
+
+    &:checked,
+    &:indeterminate {
+      border-color: var(--system-accent-color);
+      background: var(--system-accent-color);
+    }
+
+    &:disabled {
+      border-color: var(--fluent-control-stroke-subtle);
+      background: var(--fluent-control-fill-disabled);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
 
     // Only add a right margin if there's a label attached to it
     &:not(:last-child) {

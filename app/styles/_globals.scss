@@ -148,8 +148,9 @@ button {
 }
 
 :focus-visible {
-  outline: auto;
-  outline-color: var(--focus-color);
+  outline: 2px solid var(--fluent-focus-outer);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--fluent-focus-inner);
 }
 
 .more-dropdown {
@@ -185,5 +186,25 @@ kbd {
     &:not(:last-child) {
       margin-right: 2px;
     }
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --text-color: CanvasText;
+    --text-secondary-color: CanvasText;
+    --background-color: Canvas;
+    --box-background-color: Canvas;
+    --box-alt-background-color: Canvas;
+    --box-border-color: ButtonText;
+    --box-border-contrast-color: ButtonText;
+    --button-background: Highlight;
+    --button-text-color: HighlightText;
+    --system-accent-color: Highlight;
+    --system-accent-foreground-color: HighlightText;
+  }
+
+  :focus-visible {
+    outline-color: Highlight;
   }
 }

@@ -33,6 +33,7 @@
     // Necessary to limit the width of the repository
     // name and truncate accordingly
     width: 100%;
+    min-height: var(--list-item-height);
 
     &.repository-worktree-item {
       padding-left: calc(16px + var(--spacing) + var(--spacing-half));
@@ -80,7 +81,7 @@
       margin-left: var(--spacing);
       margin-right: var(--spacing-half);
       padding: 0 var(--spacing-half);
-      border-radius: var(--border-radius);
+      border-radius: 12px;
       @include ellipsis;
       flex-shrink: 1;
       min-width: 0;
@@ -259,7 +260,7 @@
       kbd {
         border-radius: var(--border-radius);
         border: var(--base-border);
-        border-color: $gray-300;
+        border-color: var(--fluent-control-stroke);
 
         display: inline-block;
 

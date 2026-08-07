@@ -27,7 +27,7 @@ export function getTitleBarHeight() {
     }
   }
 
-  return 28
+  return 32
 }
 
 interface ITitleBarProps {

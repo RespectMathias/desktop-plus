@@ -102,8 +102,8 @@
   flex-direction: row;
   align-items: center;
 
-  background-color: var(--background-color);
-  border-bottom: var(--base-border);
+  background-color: var(--box-background-color);
+  border-bottom: 1px solid var(--fluent-divider-stroke);
 
   // We need to give a bit more padding to the right to make place for the scrollbar
   padding-right: calc(var(--spacing) + var(--spacing-half));
@@ -163,7 +163,7 @@
       .tag-name {
         flex: 1 1 auto;
         padding: 0 var(--spacing-half);
-        border-radius: var(--border-radius);
+        border-radius: 12px;
         background: var(--list-item-badge-background-color);
         box-shadow: 1px 0 0 var(--background-color);
         z-index: 3;
@@ -182,7 +182,7 @@
     .unpushed-indicator {
       flex: 0 0 auto;
       height: 100%;
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 0 var(--spacing-half);
       background: var(--list-item-badge-background-color);
       margin-left: var(--spacing-half);
@@ -211,7 +211,7 @@
   flex: 0 0 auto;
   margin-right: var(--spacing-half);
   padding: 0 var(--spacing-half);
-  border-radius: var(--border-radius);
+  border-radius: 12px;
   font-size: 11px;
   line-height: 16px;
   font-weight: var(--font-weight-semibold);

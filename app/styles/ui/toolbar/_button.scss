@@ -17,7 +17,7 @@
 
   .toolbar-dropdown-button {
     width: 40px;
-    height: 49px;
+    height: var(--toolbar-height);
   }
 
   // General button behavior, mostly resets.
@@ -45,11 +45,10 @@
 
       // Prevent the focus ring from getting clipped by UI elements
       // outside of the toolbar
-      outline-offset: -4px;
+      outline: none;
+      box-shadow: inset 0 0 0 1px var(--fluent-focus-inner), inset 0 0 0 3px var(--fluent-focus-outer);
 
-      // Reset
       border-color: var(--toolbar-button-border-color);
-      box-shadow: none;
 
       .progress {
         background: var(--toolbar-button-focus-progress-color);
@@ -90,7 +89,7 @@
     flex-direction: row;
     align-items: center;
 
-    padding: var(--spacing);
+    padding: var(--spacing-half) var(--spacing);
     margin: 0;
     overflow: hidden;
 
@@ -144,7 +143,7 @@
       background: var(--toolbar-button-progress-color);
       transform-origin: left;
       pointer-events: none;
-      transition: transform 0.3s var(--easing-ease-out-quint);
+      transition: transform var(--motion-slow) var(--motion-easing);
     }
   }
 

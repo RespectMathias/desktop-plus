@@ -12,7 +12,7 @@
   // right hand side to create a divider between them and their parent
   // menu.
   &:not(:first-child) {
-    border-left: var(--base-border);
+    border-left: 1px solid var(--fluent-divider-stroke);
   }
 
   &:focus {
@@ -30,10 +30,11 @@
     display: flex;
     align-items: center;
     min-width: 0;
-    height: 30px;
+    height: 32px;
 
     &.disabled {
-      opacity: 0.3;
+      color: var(--fluent-text-fill-disabled);
+      opacity: 1;
     }
 
     &.selected {
@@ -41,7 +42,7 @@
       --text-secondary-color: var(--box-selected-active-text-color);
 
       color: var(--text-color);
-      background-color: var(--box-selected-active-background-color);
+      background-color: var(--fluent-subtle-fill-hover);
     }
 
     .label {
