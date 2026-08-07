@@ -38,8 +38,8 @@
     }
 
     &.selected {
-      --text-color: var(--box-selected-active-text-color);
-      --text-secondary-color: var(--box-selected-active-text-color);
+      --text-color: var(--app-menu-pane-color);
+      --text-secondary-color: var(--app-menu-pane-secondary-color);
 
       color: var(--text-color);
       background-color: var(--fluent-subtle-fill-hover);

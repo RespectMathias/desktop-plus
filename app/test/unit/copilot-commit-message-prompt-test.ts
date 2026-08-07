@@ -38,6 +38,19 @@ const fixedTags: ICommitMessagePromptTags = {
 }
 
 describe('buildCommitMessageSystemPrompt', () => {
+  it('uses concise commit-message rules with the Desktop Plus payload keys', () => {
+    const prompt = buildCommitMessageSystemPrompt()
+
+    assert.ok(prompt.includes('You write concise git commit messages.'))
+    assert.ok(prompt.includes('keys: title, description'))
+    assert.ok(prompt.includes('title must be imperative'))
+    assert.ok(prompt.includes('no longer than 50 characters'))
+    assert.ok(
+      prompt.includes('description can be empty or contain short bullet points')
+    )
+    assert.ok(prompt.includes('dependency-manager lock files'))
+  })
+
   it('returns the base system prompt unchanged when there are no rules', () => {
     const base = buildCommitMessageSystemPrompt()
     const withFalse = buildCommitMessageSystemPrompt(false, fixedTags)
