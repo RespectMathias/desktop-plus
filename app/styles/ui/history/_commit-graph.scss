@@ -73,8 +73,8 @@
     .fancy-text-box-component {
       flex-grow: 1;
       height: var(--text-field-height);
-      border: var(--contrast-border);
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      border: 1px solid var(--fluent-control-stroke);
+      border-radius: 0 var(--control-corner-radius) var(--control-corner-radius) 0;
 
       &.focused {
         border-color: var(--focus-color);
@@ -90,8 +90,8 @@
   .commitGraph-view-toolbar {
     display: flex;
     align-items: stretch;
-    background: var(--box-alt-background-color);
-    border-bottom: var(--base-border);
+    background: var(--fluent-solid-background-secondary);
+    border-bottom: 1px solid var(--fluent-divider-stroke);
 
     .commit-search-form {
       flex: 1 1 auto;
@@ -147,8 +147,8 @@
     flex-direction: column;
     min-height: 0;
     min-width: 0;
-    border-right: var(--base-border);
-    background: var(--box-alt-background-color);
+    border-right: 1px solid var(--fluent-divider-stroke);
+    background: var(--fluent-solid-background-secondary);
   }
 
   .commitGraph-branch-list {
@@ -166,7 +166,7 @@
     display: flex;
     align-items: center;
     min-width: 0;
-    height: 22px;
+    height: var(--control-height);
     padding: 0 var(--spacing-half);
   }
 
@@ -366,19 +366,19 @@
     min-width: 10ch;
     gap: 2px;
     padding: 0 var(--spacing-half);
-    border-radius: var(--border-radius);
-    background: #fff8d3;
-    color: #24292e;
+    border-radius: 12px;
+    background: var(--fluent-caution-background);
+    color: var(--text-color);
     font-size: var(--font-size-sm);
     line-height: 16px;
 
     &.current {
-      background: #fff3c8;
+      background: var(--fluent-caution-background);
       font-weight: var(--font-weight-semibold);
     }
 
     &.remote {
-      background: #fff8d3;
+      background: var(--fluent-caution-background);
     }
 
     &.pull-request {
@@ -410,7 +410,7 @@
   }
 
   .commitGraph-ref-tag {
-    background: #fff8d3;
+    background: var(--fluent-caution-background);
   }
 
   .commitGraph-ref-name {
@@ -491,7 +491,7 @@
   .focus-within:not(.in-keyboard-insertion-mode) .list-item.selected {
     .commitGraph-dot {
       stroke: var(--box-selected-active-background-color);
-      fill: white;
+      fill: var(--system-accent-foreground-color);
     }
 
     .commitGraph-unpushed-indicator {
@@ -502,13 +502,13 @@
 }
 
 .tooltip.commitGraph-ref-label-tooltip {
-  --tooltip-background-color: var(--background-color);
+  --tooltip-background-color: var(--fluent-solid-background-card);
   --tooltip-color: var(--text-color);
-  --tooltip-shadow-color: #{rgba($gray-900, 0.25)};
+  --tooltip-shadow-color: var(--shadow-color);
 
   max-width: 520px;
   max-height: 260px;
-  border: var(--base-border);
+  border: 1px solid var(--fluent-flyout-stroke);
 
   .tooltip-content {
     overflow: auto;

@@ -5,16 +5,22 @@
 // It's a mix in because the styles are shared between inputs
 // and select components.
 @mixin textboxish {
-  border: var(--contrast-border);
-  border-radius: var(--border-radius);
-  background: var(--box-background-color);
-  color: currentColor;
+  border: 1px solid var(--fluent-control-stroke);
+  border-radius: var(--control-corner-radius);
+  background: var(--fluent-control-fill-default);
+  color: var(--text-color);
   font-size: var(--font-size);
   font-family: var(--font-family-sans-serif);
   height: var(--text-field-height);
-  padding: 0 var(--spacing-half);
+  min-height: var(--control-height);
+  padding: 5px 6px 6px 10px;
+  transition: background-color var(--motion-fast) var(--motion-easing), border-color var(--motion-fast) var(--motion-easing), box-shadow var(--motion-fast) var(--motion-easing);
 
-  &:focus {
+  &:hover:not(:disabled) {
+    background: var(--fluent-control-fill-hover);
+  }
+
+  &:focus-visible {
     @include textboxish-focus-styles;
   }
 
@@ -29,11 +35,12 @@
 
 @mixin textboxish-focus-styles {
   outline: none;
-  border-color: var(--focus-color);
-  box-shadow: 0 0 0 1px var(--text-field-focus-shadow-color);
+  border-color: var(--system-accent-color);
+  background: var(--fluent-control-fill-input-active);
+  box-shadow: var(--focus-ring);
 }
 
 @mixin textboxish-disabled-styles {
-  background: var(--box-alt-background-color);
-  color: var(--text-secondary-color);
+  background: var(--fluent-control-fill-disabled);
+  color: var(--fluent-text-fill-disabled);
 }

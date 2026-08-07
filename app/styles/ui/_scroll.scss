@@ -26,14 +26,14 @@
   // element which is absolutely positioned on top of the main content.
   // See List.tsx and _list.scss.
   ::-webkit-scrollbar {
-    width: var(--win32-scroll-bar-size);
-    height: var(--win32-scroll-bar-size);
+    width: 12px;
+    height: 12px;
     background: transparent;
     cursor: pointer;
 
     &-thumb {
       background-color: var(--scroll-bar-thumb-background-color);
-      border-radius: var(--win32-scroll-bar-size);
+      border-radius: 3px;
 
       // This little hack allows us to have a slim scroll bar
       // with a bigger hit area. The scroll bar width/height
@@ -41,7 +41,7 @@
       // that it appears as if it's actually only 4px.
       border-color: transparent;
       border-style: solid;
-      border-width: 3px;
+      border-width: 2px 3px;
       background-clip: padding-box;
 
       // ...and when it's pressed we'll up the contrast
@@ -63,14 +63,14 @@
 @include linux-context {
   // Linux scrollbars need styled, too
   ::-webkit-scrollbar {
-    width: var(--linux-scroll-bar-size);
-    height: var(--linux-scroll-bar-size);
+    width: 12px;
+    height: 12px;
     background: transparent;
     cursor: pointer;
 
     &-thumb {
       background-color: var(--scroll-bar-thumb-background-color);
-      border-radius: var(--linux-scroll-bar-size);
+      border-radius: 3px;
 
       // This little hack allows us to have a slim scroll bar
       // with a bigger hit area. The scroll bar width/height

@@ -16,8 +16,9 @@ body > .tooltip,
 
   background-color: var(--tooltip-background-color);
   color: var(--tooltip-color);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-half) var(--spacing);
+  border: 1px solid var(--fluent-flyout-stroke);
+  border-radius: var(--overlay-corner-radius);
+  padding: 5px 10px 6px;
   font-size: var(--font-size);
   box-shadow: 0 8px 24px var(--tooltip-shadow-color);
 
@@ -135,10 +136,10 @@ body > .tooltip,
       display: block;
       appearance: none;
       color: currentColor;
-      background: rgba(255, 255, 255, 0.1);
+      background: var(--fluent-subtle-fill-hover);
       font-family: var(--font-family);
       border: none;
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      border-radius: 0 var(--control-corner-radius) var(--control-corner-radius) 0;
       padding: 0 10px;
       padding-bottom: 1px;
       margin: -5px -10px -5px 0;
@@ -149,12 +150,12 @@ body > .tooltip,
     }
 
     button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--fluent-subtle-fill-pressed);
     }
 
     button:active {
-      background: white;
-      color: #{$gray-900};
+      background: var(--fluent-control-fill-input-active);
+      color: var(--text-color);
     }
   }
 

@@ -14,7 +14,7 @@
   overflow: hidden;
 
   .ReactVirtualized__Grid {
-    background: var(--background-color);
+    background: var(--box-background-color);
   }
 
   .keyboard-insertion-element {
@@ -100,10 +100,15 @@
 
     color: var(--text-color);
     background-color: var(--box-selected-background-color);
+    box-shadow: inset 3px 0 0 var(--system-accent-color);
   }
 
   &:focus {
     outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: var(--focus-ring);
   }
 
   &:not(.not-selectable):hover {

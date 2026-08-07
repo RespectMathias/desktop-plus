@@ -78,7 +78,7 @@
     font-family: var(--diff-font-family, var(--font-family-monospace));
     font-size: var(--diff-font-size, var(--font-size-sm));
     color: var(--diff-text-color);
-    background: var(--background-color);
+    background: var(--box-background-color);
   }
 
   .side-by-side-diff-body {
@@ -132,7 +132,7 @@
     padding: 0;
     border: 0;
     border-left: 1px solid var(--diff-border-color);
-    background: var(--box-alt-background-color);
+    background: var(--fluent-solid-background-secondary);
     appearance: none;
     overflow: hidden;
 
@@ -141,8 +141,8 @@
     }
 
     &:focus-visible {
-      outline: 2px solid var(--focus-color);
-      outline-offset: -2px;
+      outline: none;
+      box-shadow: inset var(--focus-ring);
     }
 
     canvas {
@@ -159,9 +159,9 @@
     right: 3px;
     top: 0;
     height: 0;
-    border-radius: var(--border-radius);
+    border-radius: var(--control-corner-radius);
     background: color-mix(in srgb, var(--diff-selected-background-color) 22%, transparent);
-    box-shadow: 0 0 0 1px var(--diff-selected-border-color), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 0 1px var(--diff-selected-border-color), inset 0 0 0 1px var(--fluent-focus-inner);
     pointer-events: none;
   }
 

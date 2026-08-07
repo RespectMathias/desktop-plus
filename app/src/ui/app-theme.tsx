@@ -5,6 +5,8 @@ import {
   getCurrentlyAppliedTheme,
 } from './lib/application-theme'
 import * as ipcRenderer from '../lib/ipc-renderer'
+import { getAccentColor, onAccentColorChanged } from './main-process-proxy'
+import { applySystemAccentColor } from './lib/system-accent'
 
 interface IAppThemeProps {
   readonly theme: ApplicationTheme
@@ -23,8 +25,12 @@ interface IAppThemeProps {
  * body class list.
  */
 export class AppTheme extends React.PureComponent<IAppThemeProps> {
+  private removeAccentColorListener: (() => void) | null = null
+  private accentRequestVersion = 0
+
   public componentDidMount() {
     this.ensureTheme()
+    this.initializeSystemAccent()
   }
 
   public componentDidUpdate() {
@@ -33,6 +39,8 @@ export class AppTheme extends React.PureComponent<IAppThemeProps> {
 
   public componentWillUnmount() {
     this.clearThemes()
+    this.accentRequestVersion++
+    this.removeAccentColorListener?.()
   }
 
   private async ensureTheme() {
@@ -79,6 +87,25 @@ export class AppTheme extends React.PureComponent<IAppThemeProps> {
         body.classList.remove(className)
       }
     }
+  }
+
+  private initializeSystemAccent() {
+    if (!__WIN32__) {
+      return
+    }
+
+    const requestVersion = ++this.accentRequestVersion
+    this.removeAccentColorListener = onAccentColorChanged(color => {
+      this.accentRequestVersion++
+      applySystemAccentColor(color)
+    })
+    void getAccentColor()
+      .then(color => {
+        if (requestVersion === this.accentRequestVersion) {
+          applySystemAccentColor(color)
+        }
+      })
+      .catch(() => {})
   }
 
   public render() {

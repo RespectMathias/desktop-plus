@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     flex-grow: 1;
-    padding: 0 var(--spacing-half);
+    padding: 5px 10px 6px;
     align-self: unset;
   }
 
@@ -49,7 +49,7 @@
       display: flex;
       align-items: center;
       gap: var(--spacing);
-      border-bottom: var(--base-border);
+      border-bottom: 1px solid var(--fluent-divider-stroke);
 
       h3 {
         flex: 1;

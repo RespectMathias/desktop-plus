@@ -17,7 +17,10 @@
   }
 
   .foldout {
-    background: var(--background-color);
+    background: var(--fluent-solid-background-card);
     color: var(--text-color);
+    border: 1px solid var(--fluent-flyout-stroke);
+    border-radius: var(--overlay-corner-radius);
+    box-shadow: var(--base-box-shadow);
   }
 }

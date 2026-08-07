@@ -11,14 +11,14 @@
 
   @include darwin {
     height: var(--darwin-title-bar-height);
-    background: linear-gradient(to bottom, #3b3f46 0%, #2b2e33 100%);
-    border-bottom: 1px solid #000;
+    background: var(--fluent-solid-background-secondary);
+    border-bottom: 1px solid var(--fluent-divider-stroke);
   }
 
   @mixin custom-title-bar {
     height: var(--win32-title-bar-height);
     background: var(--win32-title-bar-background-color);
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--fluent-divider-stroke);
 
     .app-icon {
       color: var(--toolbar-button-secondary-color);
@@ -79,9 +79,9 @@
       box-shadow: none;
       border-radius: 0;
 
-      color: #a0a0a0;
+      color: var(--text-secondary-color);
       background-color: transparent;
-      transition: background-color 0.25s ease;
+      transition: background-color var(--motion-fast) var(--motion-easing), color var(--motion-fast) var(--motion-easing);
 
       // Explicitly setting the line height to the height
       // of the SVG illustrations helps with vertical alignment.
@@ -92,15 +92,15 @@
       }
 
       &:hover {
-        background-color: #888;
-        color: #fff;
+        background-color: var(--fluent-subtle-fill-hover);
+        color: var(--text-color);
 
         // Doing :hover:active as oposed to just :active is
         // a conscious choice to match how the real Windows
         // controls behave when someone hovers, clicks and then
         // moves away from the hitbox.
         &:active {
-          background-color: #666;
+          background-color: var(--fluent-subtle-fill-pressed);
 
           // Immediate feedback when clicking
           transition: none;
@@ -110,11 +110,11 @@
       // Close button is a special case, it needs to be red
       // on hover and slightly lighter red on active.
       &.close:hover {
-        background-color: #e81123;
-        color: #fff;
+        background-color: #c42b1c;
+        color: #ffffff;
 
         &:active {
-          background-color: #bf0f1d;
+          background-color: #8f2016;
 
           // Immediate feedback when clicking
           transition: none;
@@ -146,23 +146,23 @@
   .window-controls {
     button {
       &:hover {
-        background-color: #e5e5e5;
-        color: #000;
+        background-color: var(--fluent-subtle-fill-hover);
+        color: var(--text-color);
 
         &:active {
-          background-color: #cccccc;
+          background-color: var(--fluent-subtle-fill-pressed);
         }
       }
 
       &.close:hover {
-        background-color: #e81123;
+        background-color: #c42b1c;
 
         svg {
-          fill: #fff;
+          fill: #ffffff;
         }
 
         &:active {
-          background-color: #f1707a;
+          background-color: #8f2016;
         }
       }
     }

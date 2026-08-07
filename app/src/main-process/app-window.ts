@@ -5,6 +5,7 @@ import {
   BrowserWindow,
   autoUpdater,
   nativeTheme,
+  systemPreferences,
 } from 'electron'
 import { shell } from '../lib/app-shell'
 import { Emitter, Disposable } from 'event-kit'
@@ -267,6 +268,26 @@ export class AppWindow {
     this.addCleanupTask(() =>
       nativeTheme.removeListener('updated', onNativeThemeUpdated)
     )
+
+    if (__WIN32__) {
+      const onAccentColorChanged = (_: Electron.Event, color: string) => {
+        ipcWebContents.send(
+          this.window.webContents,
+          'accent-color-changed',
+          color
+        )
+      }
+      systemPreferences.addListener(
+        'accent-color-changed',
+        onAccentColorChanged
+      )
+      this.addCleanupTask(() =>
+        systemPreferences.removeListener(
+          'accent-color-changed',
+          onAccentColorChanged
+        )
+      )
+    }
 
     this.setupAutoUpdater()
   }

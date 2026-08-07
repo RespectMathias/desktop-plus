@@ -896,6 +896,18 @@ app.on('ready', () => {
     async () => nativeTheme.shouldUseDarkColors
   )
 
+  ipcMain.handle('get-accent-color', async () => {
+    if (!__WIN32__) {
+      return null
+    }
+
+    try {
+      return systemPreferences.getAccentColor()
+    } catch {
+      return null
+    }
+  })
+
   ipcMain.handle('get-guid', () => getMainGUID())
 
   ipcMain.handle('save-guid', (_, guid) => saveGUIDFile(guid))

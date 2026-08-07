@@ -10,7 +10,7 @@
 .diff-code-mirror .CodeMirror {
   height: 100%;
   color: var(--diff-text-color);
-  background: var(--background-color);
+  background: var(--box-background-color);
   font-size: var(--diff-font-size, var(--font-size-sm));
   font-family: var(--diff-font-family, var(--font-family-monospace));
 
@@ -53,7 +53,7 @@
 
   .CodeMirror-code {
     // Add a border to the end of the diff
-    border-bottom: var(--base-border);
+    border-bottom: 1px solid var(--fluent-divider-stroke);
   }
 
   .CodeMirror-gutters {
@@ -76,10 +76,10 @@
 
   .CodeMirror-search-dialog {
     left: auto;
-    border: var(--base-border);
+    border: 1px solid var(--fluent-flyout-stroke);
     border-top: 0;
     right: var(--spacing);
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    border-radius: 0 0 var(--overlay-corner-radius) var(--overlay-corner-radius);
     padding: var(--spacing-half) var(--spacing);
     box-shadow: var(--base-box-shadow);
 
@@ -89,7 +89,7 @@
     }
 
     input.CodeMirror-search-field {
-      background: var(--box-background-color);
+      background: var(--fluent-control-fill-default);
       color: var(--text-color);
       font-size: var(--font-size);
       font-family: var(--font-family-sans-serif);

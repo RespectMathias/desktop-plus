@@ -84,6 +84,7 @@ export type RequestChannels = {
   'auto-updater-update-not-available': () => void
   'auto-updater-update-downloaded': () => void
   'native-theme-updated': () => void
+  'accent-color-changed': (color: string) => void
   'set-native-theme-source': (themeName: ThemeSource) => void
   'update-window-background-color': (color: string) => void
   'focus-window': () => void
@@ -131,6 +132,7 @@ export type RequestResponseChannels = {
   'is-window-maximized': () => Promise<boolean>
   'get-apple-action-on-double-click': () => Promise<Electron.AppleActionOnDoubleClickPref>
   'should-use-dark-colors': () => Promise<boolean>
+  'get-accent-color': () => Promise<string | null>
   'save-guid': (guid: string) => Promise<void>
   'get-guid': () => Promise<string>
   'update-main-process-config': (
