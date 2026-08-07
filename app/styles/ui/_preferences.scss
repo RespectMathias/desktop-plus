@@ -191,7 +191,7 @@
           margin: 0;
 
           .theme-value-label {
-            margin-left: calc(var(--spacing-triple));
+            margin-left: calc(var(--spacing-triple) + var(--spacing) + var(--spacing-half));
           }
 
           img {
