@@ -39,6 +39,8 @@
 .merge-button {
   &.button-component {
     align-self: auto;
+    width: 100%;
+    min-width: 0;
   }
 
   &-row {
@@ -46,6 +48,15 @@
     flex-direction: column;
     border-top: var(--base-border);
     padding: var(--spacing);
+    min-width: 0;
+  }
+
+  &-label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .icon {

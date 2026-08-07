@@ -63,8 +63,8 @@
         // Positioning
         position: absolute;
         top: 0px;
-        right: 1px;
-        width: 12px;
+        right: 0;
+        width: 6px;
 
         // Only support vertical scrolling for now
         overflow-y: auto;
@@ -111,7 +111,7 @@
     box-shadow: var(--focus-ring);
   }
 
-  &:not(.not-selectable):hover {
+  &:not(.not-selectable):not(.selected):hover {
     background: var(--list-item-hover-background-color);
   }
 

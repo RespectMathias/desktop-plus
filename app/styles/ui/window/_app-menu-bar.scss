@@ -20,7 +20,7 @@
     background: transparent;
 
     &:hover,
-    &:focus {
+    &:focus-visible {
       color: var(--app-menu-button-hover-color);
       background: var(--app-menu-button-hover-background-color);
     }
@@ -33,6 +33,11 @@
     // So we'll have the background of the foldout be transparent
     // but have an opaque background on the menu pane.
     background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: fit-content !important;
+    max-height: calc(100vh - var(--win32-title-bar-height));
 
     // This is yet another hack, since the foldout has to extend
     // to 100% of the available width (or else we can't constrain
@@ -48,6 +53,11 @@
     .menu-pane {
       --background-color: var(--app-menu-pane-background-color);
       background: var(--background-color);
+      border: 1px solid var(--mica-elevated-border);
+      border-radius: var(--overlay-corner-radius);
+      box-shadow: var(--mica-elevated-shadow);
+      -webkit-backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
+      backdrop-filter: #{'blur(var(--mica-glass-blur)) saturate(var(--mica-glass-saturation))'};
 
       --text-color: var(--app-menu-pane-color);
       color: var(--text-color);
@@ -56,5 +66,11 @@
 
       pointer-events: all;
     }
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  #app-menu-bar #foldout-container .foldout .menu-pane {
+    background: var(--mica-overlay-fill);
   }
 }

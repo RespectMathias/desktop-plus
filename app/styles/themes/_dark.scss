@@ -19,26 +19,31 @@ body.theme-dark {
   --fluent-text-fill-tertiary: #ffffff87;
   --fluent-text-fill-disabled: #ffffff5d;
   --fluent-text-fill-inverse: #000000e4;
-  --fluent-control-fill-default: #ffffff0f;
-  --fluent-control-fill-hover: #ffffff15;
-  --fluent-control-fill-pressed: #ffffff08;
+  --fluent-control-fill-default: #191919;
+  --fluent-control-fill-hover: #242424;
+  --fluent-control-fill-pressed: #141414;
   --fluent-control-fill-disabled: #ffffff0b;
-  --fluent-control-fill-input-active: #1e1e1eb3;
+  --fluent-control-fill-input-active: #191919;
   --fluent-control-strong-fill: #ffffff8b;
   --fluent-subtle-fill-hover: #ffffff0f;
   --fluent-subtle-fill-pressed: #ffffff0a;
-  --fluent-card-fill: #ffffff0d;
-  --fluent-layer-fill: #3a3a3a4c;
-  --fluent-solid-background-base: #202020;
-  --fluent-solid-background-secondary: #1c1c1c;
-  --fluent-solid-background-tertiary: #282828;
-  --fluent-solid-background-card: #2c2c2c;
+  --fluent-card-fill: #141414;
+  --fluent-layer-fill: #111111d1;
+  --fluent-layer-on-mica-base-alt-fill-default: #191919de;
+  --fluent-layer-on-mica-base-alt-fill-secondary: #ffffff0a;
+  --fluent-layer-on-mica-base-alt-fill-tertiary: #141414;
+  --fluent-layer-on-mica-base-alt-fill-transparent: #ffffff00;
+  --fluent-solid-background-base: #111111;
+  --fluent-solid-background-base-alt: #0a0a0a;
+  --fluent-solid-background-secondary: #111111;
+  --fluent-solid-background-tertiary: #141414;
+  --fluent-solid-background-card: #111111;
   --fluent-control-stroke: #ffffff18;
   --fluent-control-stroke-subtle: #ffffff12;
   --fluent-control-strong-stroke: #ffffff8b;
-  --fluent-card-stroke: #ffffff19;
-  --fluent-flyout-stroke: #ffffff33;
-  --fluent-divider-stroke: #ffffff15;
+  --fluent-card-stroke: #ffffff0f;
+  --fluent-flyout-stroke: #ffffff1a;
+  --fluent-divider-stroke: #ffffff0f;
   --fluent-focus-outer: #ffffff;
   --fluent-focus-inner: #000000b3;
   --fluent-success: #6ccb5f;
@@ -49,6 +54,13 @@ body.theme-dark {
   --fluent-critical-background: #442726;
   --fluent-accent-hover: color-mix(in srgb, var(--system-accent-color) 90%, var(--fluent-solid-background-base));
   --fluent-accent-pressed: color-mix(in srgb, var(--system-accent-color) 80%, var(--fluent-solid-background-base));
+  --mica-surface-fill: #111111;
+  --mica-raised-fill: #141414;
+  --mica-overlay-fill: #191919;
+  --mica-glass-blur: 16px;
+  --mica-glass-saturation: 1.08;
+  --mica-elevated-border: #ffffff1a;
+  --mica-elevated-shadow: 0 18px 44px -18px rgb(0 0 0 / 80%);
 
   --color-new: #{$green};
   --color-deleted: #{$red};
@@ -59,7 +71,7 @@ body.theme-dark {
   --text-color: var(--fluent-text-fill-primary);
   --text-secondary-color: var(--fluent-text-fill-secondary);
   --text-secondary-color-muted: var(--fluent-text-fill-tertiary);
-  --background-color: var(--fluent-solid-background-base);
+  --background-color: var(--fluent-solid-background-base-alt);
 
   --button-background: var(--system-accent-color);
   --button-hover-background: var(--fluent-accent-hover);
@@ -111,7 +123,7 @@ body.theme-dark {
    *
    * Note: Only applies to win32 and linux platforms
    */
-  --scroll-bar-thumb-background-color: rgba(255, 255, 255, 0.2);
+  --scroll-bar-thumb-background-color: rgb(255 255 255 / 8%);
 
   /**
    * Background color for custom scroll bars in their active state.
@@ -119,7 +131,7 @@ body.theme-dark {
    *
    * Note: Only applies to win32 and linux platforms
    */
-  --scroll-bar-thumb-background-color-active: rgba(255, 255, 255, 0.5);
+  --scroll-bar-thumb-background-color-active: rgb(255 255 255 / 12%);
 
   // Box
   //
@@ -128,8 +140,8 @@ body.theme-dark {
   // or an item in a tab control header. It's up to each implementation
   // to decide what states to support (active selection, selection, etc).
 
-  --box-background-color: var(--fluent-solid-background-card);
-  --box-alt-background-color: var(--fluent-solid-background-tertiary);
+  --box-background-color: var(--mica-surface-fill);
+  --box-alt-background-color: var(--mica-raised-fill);
 
   /**
    * Background color for skeleton or "loading" boxes
@@ -234,7 +246,7 @@ body.theme-dark {
   --shadow-color: #{rgba(black, 0.5)};
   --base-box-shadow: 0 2px 7px var(--shadow-color);
 
-  --toolbar-background-color: var(--fluent-solid-background-secondary);
+  --toolbar-background-color: var(--fluent-layer-fill);
   --toolbar-border-color: var(--fluent-divider-stroke);
   --toolbar-text-color: var(--fluent-text-fill-primary);
   --toolbar-text-secondary-color: var(--fluent-text-fill-secondary);
@@ -254,14 +266,14 @@ body.theme-dark {
   --toolbar-button-active-background-color: var(--fluent-control-fill-default);
   --toolbar-button-active-border-color: var(--fluent-control-stroke);
 
-  --toolbar-button-progress-color: #{$gray-800};
-  --toolbar-button-focus-progress-color: #{$gray-700};
-  --toolbar-button-hover-progress-color: #{$gray-700};
-  --toolbar-dropdown-open-progress-color: #{$gray-200};
+  --toolbar-button-progress-color: var(--fluent-layer-on-mica-base-alt-fill-tertiary);
+  --toolbar-button-focus-progress-color: var(--fluent-control-fill-hover);
+  --toolbar-button-hover-progress-color: var(--fluent-control-fill-hover);
+  --toolbar-dropdown-open-progress-color: var(--fluent-control-fill-default);
   --toolbar-dropdown-text-warning-color: #{$orange-600};
   --toolbar-dropdown-text-hover-color: #{$white};
 
-  --toolbar-tooltip-background-color: #{$gray-800};
+  --toolbar-tooltip-background-color: var(--mica-overlay-fill);
   --toolbar-tooltip-shadow-color: black;
 
   /**
@@ -271,11 +283,11 @@ body.theme-dark {
   --app-menu-button-hover-color: var(--toolbar-button-hover-color);
   --app-menu-button-hover-background-color: var(--toolbar-button-hover-background-color);
   --app-menu-button-active-color: var(--text-color);
-  --app-menu-button-active-background-color: #{$gray-800};
+  --app-menu-button-active-background-color: var(--fluent-layer-on-mica-base-alt-fill-secondary);
   --app-menu-pane-color: var(--text-color);
   --app-menu-pane-secondary-color: var(--text-secondary-color);
-  --app-menu-pane-background-color: #{$gray-800};
-  --app-menu-divider-color: #{$gray-600};
+  --app-menu-pane-background-color: var(--fluent-layer-on-mica-base-alt-fill-default);
+  --app-menu-divider-color: var(--fluent-divider-stroke);
 
   /**
    * Background color for badges inside of toolbar buttons.
@@ -283,16 +295,16 @@ body.theme-dark {
    * push/pull button and the PR badge in the branch drop
    * down button.
    */
-  --toolbar-badge-background-color: #{$gray-700};
-  --toolbar-badge-active-background-color: #{$gray-700};
+  --toolbar-badge-background-color: var(--fluent-control-strong-fill);
+  --toolbar-badge-active-background-color: var(--fluent-control-fill-hover);
 
   --tab-bar-active-color: var(--system-accent-color);
-  --tab-bar-background-color: var(--fluent-solid-background-secondary);
-  --tab-bar-hover-background-color: var(--fluent-subtle-fill-hover);
+  --tab-bar-background-color: var(--mica-surface-fill);
+  --tab-bar-hover-background-color: var(--fluent-layer-on-mica-base-alt-fill-secondary);
 
   /** Count bubble colors when used inside of a tab bar item */
   --tab-bar-count-color: var(--text-color);
-  --tab-bar-count-background-color: #{$gray-700};
+  --tab-bar-count-background-color: var(--fluent-control-fill-hover);
 
   /**
     * Badge colors when used inside of list items.
@@ -300,13 +312,13 @@ body.theme-dark {
     * of the repository list.
     */
   --list-item-badge-color: var(--text-color);
-  --list-item-badge-background-color: #{$gray-600};
-  --branch-pill-background-color: #{$gray-800};
-  --list-item-selected-badge-color: #{$white};
-  --list-item-selected-badge-background-color: #{$gray-500};
-  --list-item-selected-active-badge-color: #{$gray-900};
-  --list-item-selected-active-badge-background-color: #{$white};
-  --list-item-hover-background-color: #{$gray-800};
+  --list-item-badge-background-color: var(--fluent-control-fill-hover);
+  --branch-pill-background-color: var(--fluent-control-fill-hover);
+  --list-item-selected-badge-color: var(--fluent-text-fill-primary);
+  --list-item-selected-badge-background-color: var(--fluent-control-fill-pressed);
+  --list-item-selected-active-badge-color: var(--system-accent-foreground-color);
+  --list-item-selected-active-badge-background-color: var(--system-accent-color);
+  --list-item-hover-background-color: var(--fluent-subtle-fill-hover);
 
   /**
    * Toast notifications are shown temporarily for things like the zoom
@@ -329,9 +341,9 @@ body.theme-dark {
   /**
    * Blankslate actions, see `BlankslateAction` component.
    */
-  --primary-suggested-action-background: #{$blue-900};
-  --primary-suggested-action-border-color: #{$blue-700};
-  --suggested-action-icon-color: #{$blue-400};
+  --primary-suggested-action-background: var(--fluent-card-fill);
+  --primary-suggested-action-border-color: var(--fluent-card-stroke);
+  --suggested-action-icon-color: var(--system-accent-color);
 
   /**
    * Diff view
@@ -439,9 +451,9 @@ body.theme-dark {
   --file-warning-border-color: #{rgba($yellow-800, 0.4)};
 
   /** Tooltips */
-  --tooltip-background-color: #{$gray-800};
-  --tooltip-color: #{$gray-100};
-  --tooltip-shadow-color: #{$black};
+  --tooltip-background-color: #191919de;
+  --tooltip-color: var(--text-color);
+  --tooltip-shadow-color: rgb(0 0 0 / 80%);
 
   /** Inline paths and code */
   --path-segment-background: #{$gray-700};

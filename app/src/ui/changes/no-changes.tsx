@@ -62,7 +62,14 @@ function formatParentMenuLabel(menuItem: IMenuItemInfo) {
   return formatMenuItemLabel(parentMenusText)
 }
 
-const PaperStackImage = encodePathAsUrl(__dirname, 'static/paper-stack.svg')
+const LightNoChangesImage = encodePathAsUrl(
+  __dirname,
+  'static/no-local-changes.svg'
+)
+const DarkNoChangesImage = encodePathAsUrl(
+  __dirname,
+  'static/no-local-changes-dark.svg'
+)
 
 interface INoChangesProps {
   readonly dispatcher: Dispatcher
@@ -869,7 +876,18 @@ export class NoChanges extends React.Component<
                 some friendly suggestions for what to do next.
               </p>
             </div>
-            <img src={PaperStackImage} className="blankslate-image" alt="" />
+            <div className="no-local-changes-illustration" aria-hidden="true">
+              <img
+                src={LightNoChangesImage}
+                className="no-local-changes-illustration-light"
+                alt=""
+              />
+              <img
+                src={DarkNoChangesImage}
+                className="no-local-changes-illustration-dark"
+                alt=""
+              />
+            </div>
           </div>
           {this.renderActions()}
         </div>

@@ -26,8 +26,8 @@
   // element which is absolutely positioned on top of the main content.
   // See List.tsx and _list.scss.
   ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 6px;
+    height: 6px;
     background: transparent;
     cursor: pointer;
 
@@ -41,7 +41,7 @@
       // that it appears as if it's actually only 4px.
       border-color: transparent;
       border-style: solid;
-      border-width: 2px 3px;
+      border-width: 1px;
       background-clip: padding-box;
 
       // ...and when it's pressed we'll up the contrast
@@ -52,7 +52,7 @@
       // When someone hovers over, or presses the bar we'll expand it to 8px
       &:hover,
       &:active {
-        border-width: 1px;
+        border-width: 0;
         background-color: var(--scroll-bar-thumb-background-color-active);
         cursor: pointer;
       }
@@ -63,8 +63,8 @@
 @include linux-context {
   // Linux scrollbars need styled, too
   ::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
+    width: 6px;
+    height: 6px;
     background: transparent;
     cursor: pointer;
 
@@ -78,7 +78,7 @@
       // that it appears as if it's actually only 4px.
       border-color: transparent;
       border-style: solid;
-      border-width: 3px;
+      border-width: 1px;
       background-clip: padding-box;
 
       // ...and when it's pressed we'll up the contrast
@@ -89,7 +89,7 @@
       // When someone hovers over, or presses the bar we'll expand it to 8px
       &:hover,
       &:active {
-        border-width: 1px;
+        border-width: 0;
         background-color: var(--scroll-bar-thumb-background-color-active);
         cursor: pointer;
       }
