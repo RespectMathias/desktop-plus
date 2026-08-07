@@ -264,6 +264,7 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
 
   private dialogElement: HTMLDialogElement | null = null
   private dismissGraceTimeoutId?: number
+  private lastFocusedElement: HTMLElement | null = null
 
   private disableClickDismissalTimeoutId: number | null = null
   private disableClickDismissal = false
@@ -395,6 +396,8 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
       this.dialogElement.showModal()
     }
 
+    this.dialogElement.addEventListener('focusin', this.onDialogFocusIn)
+
     // Provide an event that components can subscribe to in order to perform
     // tasks such as re-layout after the dialog is visible
     this.dialogElement.dispatchEvent(
@@ -407,7 +410,18 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
     this.setState({ isAppearing: true })
     this.scheduleDismissGraceTimeout()
 
-    this.focusFirstSuitableChild()
+    if (
+      this.lastFocusedElement !== null &&
+      this.dialogElement.contains(this.lastFocusedElement)
+    ) {
+      this.lastFocusedElement.focus()
+      if (document.activeElement !== this.lastFocusedElement) {
+        this.lastFocusedElement = null
+        this.focusFirstSuitableChild()
+      }
+    } else {
+      this.focusFirstSuitableChild()
+    }
 
     window.addEventListener('focus', this.onWindowFocus)
 
@@ -416,6 +430,8 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
   }
 
   protected onDialogIsNotTopMost() {
+    this.dialogElement?.removeEventListener('focusin', this.onDialogFocusIn)
+
     if (this.dialogElement !== null && this.dialogElement.open) {
       this.dialogElement?.close()
     }
@@ -427,6 +443,16 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
 
     this.resizeObserver.disconnect()
     window.removeEventListener('resize', this.scheduleResizeEvent)
+  }
+
+  private onDialogFocusIn = (e: FocusEvent) => {
+    if (
+      e.target instanceof HTMLElement &&
+      e.target !== this.dialogElement &&
+      this.dialogElement?.contains(e.target)
+    ) {
+      this.lastFocusedElement = e.target
+    }
   }
 
   /**

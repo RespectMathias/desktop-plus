@@ -260,7 +260,7 @@ import {
   getRepositoryType,
   RepositoryType,
   listWorktrees,
-  listWorktreesFromGitDir,
+  resolveMainWorktreePath,
   removeWorktree,
   moveWorktree,
   getCommitRangeDiff,
@@ -278,7 +278,6 @@ import {
   IConfigValueOrigin,
   unstageAll,
   git,
-  listWorktreesFromGitDirFallback,
 } from '../git'
 import {
   installGlobalLFSFilters,
@@ -4616,27 +4615,30 @@ export class AppStore extends TypedBaseStore<IAppState> {
     return repository
   }
 
+  private findMainWorktreePath(path: string): Promise<string | undefined> {
+    return listWorktrees(path)
+      .then(worktrees => worktrees.find(wt => wt.type === 'main')?.path)
+      .catch(e => {
+        log.error(`Could not list worktrees in '${path}'`, e)
+        return undefined
+      })
+  }
+
   private async recoverMissingWorktree(
     repository: Repository
   ): Promise<Repository | null> {
-    if (repository.gitDir === undefined) {
-      return null
-    }
-    const repositoryGitDir = repository.gitDir
-
-    const worktrees = await listWorktreesFromGitDir(repository.gitDir).catch(
+    const mainWorktreePath = await resolveMainWorktreePath(repository).catch(
       e => {
-        log.error('Could not list worktrees from git dir', e)
-        return listWorktreesFromGitDirFallback(repositoryGitDir)
+        log.error('Could not resolve main worktree path', e)
+        return null
       }
     )
-    const mainWorktree = worktrees.find(wt => wt.type === 'main')
 
-    if (mainWorktree === undefined || mainWorktree.path === repository.path) {
+    if (mainWorktreePath === null) {
       return null
     }
 
-    const type = await getRepositoryType(mainWorktree.path).catch(e => {
+    const type = await getRepositoryType(mainWorktreePath).catch(e => {
       log.error('Could not determine main worktree repository type', e)
       return { kind: 'missing' } as RepositoryType
     })
@@ -4649,15 +4651,25 @@ export class AppStore extends TypedBaseStore<IAppState> {
       repository,
       type.topLevelWorkingDirectory,
       false,
-      type.gitDir
+      type.gitDir,
+      type.topLevelWorkingDirectory
     )
 
     if (!result.existingRepository) {
-      this.repositoryStateCache.seedFromWorktree(
-        result.repository,
-        repository,
-        mainWorktree
-      )
+      const mainWorktree = await listWorktrees(type.topLevelWorkingDirectory)
+        .then(worktrees => worktrees.find(wt => wt.type === 'main'))
+        .catch(e => {
+          log.error('Could not list worktrees from main worktree', e)
+          return undefined
+        })
+
+      if (mainWorktree !== undefined) {
+        this.repositoryStateCache.seedFromWorktree(
+          result.repository,
+          repository,
+          mainWorktree
+        )
+      }
     }
 
     return result.repository
@@ -7209,12 +7221,17 @@ export class AppStore extends TypedBaseStore<IAppState> {
     // allow list.
     const missing = type.kind === 'unsafe'
     const gitDir = type.kind === 'regular' ? type.gitDir : undefined
+    const mainWorktreePath =
+      type.kind === 'regular'
+        ? await this.findMainWorktreePath(worktree.path)
+        : undefined
 
     const result = await this.repositoriesStore.switchWorktree(
       repository,
       worktree.path,
       missing,
-      gitDir
+      gitDir,
+      mainWorktreePath
     )
 
     this.repositoryStateCache.seedFromWorktree(
@@ -9486,12 +9503,14 @@ export class AppStore extends TypedBaseStore<IAppState> {
       await this.repositoriesStore.updateRepositoryPath(
         repository,
         rt.topLevelWorkingDirectory,
-        rt.gitDir
+        rt.gitDir,
+        await this.findMainWorktreePath(rt.topLevelWorkingDirectory)
       )
     } else if (rt.kind === 'unsafe') {
       await this.repositoriesStore.updateRepositoryPath(
         repository,
         path,
+        undefined,
         undefined,
         true
       )

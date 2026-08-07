@@ -3,6 +3,7 @@ import type { Repository } from '../../models/repository'
 import type { WorktreeEntry, WorktreeType } from '../../models/worktree'
 import { git } from './core'
 import { directoryExists } from '../directory-exists'
+import { pathExists } from '../path-exists'
 import { readFile } from 'fs/promises'
 
 export function parseWorktreePorcelainOutput(
@@ -78,6 +79,33 @@ export async function listWorktreesFromGitDir(
   )
 
   return parseWorktreePorcelainOutput(result.stdout)
+}
+
+export async function resolveMainWorktreePath(
+  repository: Repository
+): Promise<string | null> {
+  const { mainWorktreePath, gitDir, path } = repository
+
+  if (mainWorktreePath === path) {
+    return null
+  }
+
+  if (mainWorktreePath !== undefined && (await pathExists(mainWorktreePath))) {
+    return mainWorktreePath
+  }
+
+  if (gitDir === undefined) {
+    return null
+  }
+
+  const worktrees = await listWorktreesFromGitDir(gitDir).catch(() =>
+    listWorktreesFromGitDirFallback(gitDir)
+  )
+  const mainWorktree = worktrees.find(wt => wt.type === 'main')
+
+  return mainWorktree === undefined || mainWorktree.path === path
+    ? null
+    : mainWorktree.path
 }
 
 export async function listWorktreesFromGitDirFallback(

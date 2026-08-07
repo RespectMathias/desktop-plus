@@ -240,4 +240,93 @@ describe('RepositoriesStore', () => {
       assert.equal(reloaded?.type, 'github')
     })
   })
+
+  describe('switching worktrees', () => {
+    const mainPath = '/some/cool/path'
+    const worktreePath = '/some/cool/path-wt-a'
+    const worktreeGitDir = join(mainPath, '.git/worktrees/path-wt-a')
+
+    it('persists the main worktree path', async () => {
+      const repository = await repositoriesStore.addRepository(
+        mainPath,
+        join(mainPath, '.git'),
+        null
+      )
+
+      await repositoriesStore.switchWorktree(
+        repository,
+        worktreePath,
+        false,
+        worktreeGitDir,
+        mainPath
+      )
+
+      const [reloaded] = await repositoriesStore.getAll()
+      assert.equal(reloaded.mainWorktreePath, mainPath)
+    })
+
+    it('keeps the main worktree path between linked worktrees', async () => {
+      const repository = await repositoriesStore.addRepository(
+        mainPath,
+        join(mainPath, '.git'),
+        null
+      )
+      const { repository: linkedWorktree } =
+        await repositoriesStore.switchWorktree(
+          repository,
+          worktreePath,
+          false,
+          worktreeGitDir,
+          mainPath
+        )
+
+      await repositoriesStore.switchWorktree(
+        linkedWorktree,
+        '/some/cool/path-wt-b',
+        false,
+        join(mainPath, '.git/worktrees/path-wt-b')
+      )
+
+      const [reloaded] = await repositoriesStore.getAll()
+      assert.equal(reloaded.mainWorktreePath, mainPath)
+    })
+  })
+
+  describe('relocating a repository', () => {
+    it('replaces or clears stale main worktree paths', async () => {
+      const mainPath = '/some/cool/path'
+      const repository = await repositoriesStore.addRepository(
+        mainPath,
+        join(mainPath, '.git'),
+        null
+      )
+      const { repository: linkedWorktree } =
+        await repositoriesStore.switchWorktree(
+          repository,
+          '/some/cool/path-wt-a',
+          false,
+          join(mainPath, '.git/worktrees/path-wt-a'),
+          mainPath
+        )
+
+      await repositoriesStore.updateRepositoryPath(
+        linkedWorktree,
+        '/moved/path-wt-a',
+        '/moved/path/.git/worktrees/path-wt-a',
+        '/moved/path'
+      )
+      const [reloaded] = await repositoriesStore.getAll()
+      assert.equal(reloaded.mainWorktreePath, '/moved/path')
+
+      await repositoriesStore.updateRepositoryPath(
+        reloaded,
+        '/moved-again/path-wt-a',
+        undefined,
+        undefined,
+        true
+      )
+      const [cleared] = await repositoriesStore.getAll()
+      assert.equal(cleared.mainWorktreePath, undefined)
+    })
+  })
 })

@@ -72,7 +72,9 @@ export class Repository {
      * hasn't been resolved yet (e.g. for repositories added before this
      * property was introduced).
      */
-    public readonly gitDir: string | undefined = undefined
+    public readonly gitDir: string | undefined = undefined,
+    /** The main worktree path recorded for linked-worktree recovery. */
+    public readonly mainWorktreePath: string | undefined = undefined
   ) {
     this.name = (gitHubRepository && gitHubRepository.name) || getBaseName(path)
 

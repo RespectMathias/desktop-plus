@@ -103,6 +103,26 @@ export interface IRepositoryIdentifier {
   readonly name: string
 }
 
+export function sanitizeCloneName(name: string): string | null {
+  const components = name.split(/[/\\:]/)
+
+  let lastComponent = ''
+  for (let i = components.length - 1; i >= 0; i--) {
+    if (components[i].length > 0) {
+      lastComponent = components[i]
+      break
+    }
+  }
+
+  if (lastComponent.endsWith('.git')) {
+    lastComponent = lastComponent.slice(0, -4)
+  }
+
+  return lastComponent === '..' || lastComponent === '.' || lastComponent === ''
+    ? null
+    : lastComponent
+}
+
 /** Try to parse an owner and name from a URL or owner/name shortcut. */
 export function parseRepositoryIdentifier(
   url: string

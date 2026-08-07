@@ -111,4 +111,20 @@ describe('git/clone', () => {
     const result = await exec(['symbolic-ref', 'HEAD'], clonePath)
     assert.equal(result.stdout.trim(), 'refs/heads/trunk')
   })
+
+  it('rejects cloning into sensitive locations', async () => {
+    const os = await import('os')
+    const paths = [
+      path.join(os.homedir(), '.ssh', 'malicious-clone'),
+      os.homedir(),
+      path.join(os.homedir(), '.config', 'git'),
+    ]
+
+    for (const clonePath of paths) {
+      await assert.rejects(
+        () => clone('https://example.com/repo.git', clonePath, {}, null),
+        (err: Error) => err.message.includes('sensitive system location')
+      )
+    }
+  })
 })

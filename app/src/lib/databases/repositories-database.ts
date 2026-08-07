@@ -66,6 +66,9 @@ export interface IDatabaseRepository {
   /** The path to the .git directory for this repository */
   readonly gitDir?: string
 
+  /** The main worktree path recorded for linked-worktree recovery. */
+  readonly mainWorktreePath?: string
+
   /** The last time the stash entries were checked for the repository */
   readonly lastStashCheckDate?: number | null
 

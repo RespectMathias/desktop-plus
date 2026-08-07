@@ -1,7 +1,7 @@
 import assert from 'node:assert'
 import * as Path from 'path'
 import { realpath, rm } from 'fs/promises'
-import { describe, it } from 'node:test'
+import { describe, it, type TestContext } from 'node:test'
 import { exec } from 'dugite'
 import { setupEmptyRepository } from '../../helpers/repositories'
 import { makeCommit } from '../../helpers/repository-scaffolding'
@@ -9,7 +9,9 @@ import {
   parseWorktreePorcelainOutput,
   listWorktrees,
   listWorktreesFromGitDir,
+  resolveMainWorktreePath,
 } from '../../../src/lib/git'
+import { Repository } from '../../../src/models/repository'
 
 describe('git/worktree', () => {
   describe('parseWorktreePorcelainOutput', () => {
@@ -318,6 +320,118 @@ describe('git/worktree', () => {
       assert.strictEqual(mainWorktree?.path, repoPath)
       assert(
         worktrees.some(wt => wt.path === resolvedWorktreePath && wt.isPrunable)
+      )
+    })
+  })
+
+  describe('resolveMainWorktreePath', () => {
+    async function setupWorktree(t: TestContext) {
+      const repo = await setupEmptyRepository(t, 'main')
+      await makeCommit(repo, {
+        entries: [{ path: 'README', contents: 'hello' }],
+      })
+      await exec(['branch', 'feature-a'], repo.path)
+
+      const worktreePath = repo.path + '-wt-a'
+      await exec(['worktree', 'add', worktreePath, 'feature-a'], repo.path)
+      const { stdout } = await exec(['rev-parse', '--git-dir'], worktreePath)
+
+      return {
+        repo,
+        mainPath: await realpath(repo.path),
+        worktreePath,
+        gitDir: Path.resolve(worktreePath, stdout.trim()),
+      }
+    }
+
+    it('uses a recorded path after linked-worktree metadata is removed', async t => {
+      const { repo, mainPath, worktreePath, gitDir } = await setupWorktree(t)
+      const selected = new Repository(
+        worktreePath,
+        1,
+        null,
+        false,
+        null,
+        null,
+        null,
+        {},
+        null,
+        false,
+        null,
+        gitDir,
+        mainPath
+      )
+
+      await exec(['worktree', 'remove', '--force', worktreePath], repo.path)
+      assert.strictEqual(await resolveMainWorktreePath(selected), mainPath)
+    })
+
+    it('falls back to git metadata for old repository records', async t => {
+      const { mainPath, worktreePath, gitDir } = await setupWorktree(t)
+      const selected = new Repository(
+        worktreePath,
+        1,
+        null,
+        false,
+        null,
+        null,
+        null,
+        {},
+        null,
+        false,
+        null,
+        gitDir
+      )
+
+      await rm(worktreePath, { recursive: true, force: true })
+      assert.strictEqual(await resolveMainWorktreePath(selected), mainPath)
+    })
+
+    it('falls back to git metadata when recorded path is stale', async t => {
+      const { mainPath, worktreePath, gitDir } = await setupWorktree(t)
+      const selected = new Repository(
+        worktreePath,
+        1,
+        null,
+        false,
+        null,
+        null,
+        null,
+        {},
+        null,
+        false,
+        null,
+        gitDir,
+        Path.join(mainPath, 'no-longer-here')
+      )
+
+      assert.strictEqual(await resolveMainWorktreePath(selected), mainPath)
+    })
+
+    it('returns null for main worktrees and unresolved records', async t => {
+      const { repo, mainPath, worktreePath } = await setupWorktree(t)
+      const main = new Repository(
+        mainPath,
+        1,
+        null,
+        false,
+        null,
+        null,
+        null,
+        {},
+        null,
+        false,
+        null,
+        Path.join(repo.path, '.git'),
+        mainPath
+      )
+
+      assert.strictEqual(await resolveMainWorktreePath(main), null)
+      assert.strictEqual(
+        await resolveMainWorktreePath(
+          new Repository(worktreePath, 1, null, false)
+        ),
+        null
       )
     })
   })
