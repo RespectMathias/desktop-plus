@@ -57,6 +57,9 @@ body.theme-dark {
   --mica-surface-fill: #111111;
   --mica-raised-fill: #141414;
   --mica-overlay-fill: #191919;
+  --repository-canvas-background-color: #0a0a0a;
+  --repository-sidebar-background-color: #111111;
+  --repository-sidebar-border-color: #242424;
   --mica-glass-blur: 16px;
   --mica-glass-saturation: 1.08;
   --mica-elevated-border: #ffffff1a;
@@ -349,13 +352,14 @@ body.theme-dark {
    * Diff view
    */
 
+  --diff-background-color: #111111;
   --diff-text-color: var(--text-color);
-  --diff-alt-text-color: #{darken($gray-100, 20%)};
-  --diff-border-color: #{$gray-800};
-  --diff-gutter-color: #{$gray-800};
-  --diff-gutter-background-color: #{darken($gray-900, 3%)};
+  --diff-alt-text-color: #a3a3a3;
+  --diff-border-color: #242424;
+  --diff-gutter-color: #242424;
+  --diff-gutter-background-color: #0a0a0a;
 
-  --diff-line-number-color: var(--text-secondary-color);
+  --diff-line-number-color: #818181;
   --diff-line-number-column-width: 50px;
 
   --diff-selected-background-color: #{$blue-700};
@@ -377,11 +381,11 @@ body.theme-dark {
   --diff-delete-inner-background-color: #{$red-700};
   --diff-delete-text-color: #{$red-100};
 
-  --diff-hunk-background-color: #{darken($gray-900, 3%)};
-  --diff-hunk-border-color: #{lighten($gray-900, 3%)};
-  --diff-hunk-gutter-color: #{lighten($gray-900, 3%)};
-  --diff-hunk-gutter-background-color: #{darken($gray-900, 6%)};
-  --diff-hunk-text-color: var(--text-secondary-color);
+  --diff-hunk-background-color: #191919;
+  --diff-hunk-border-color: #242424;
+  --diff-hunk-gutter-color: #242424;
+  --diff-hunk-gutter-background-color: #141414;
+  --diff-hunk-text-color: #a3a3a3;
 
   --diff-hover-background-color: #{$blue-500};
   --diff-hover-border-color: #{$blue-400};
@@ -398,9 +402,9 @@ body.theme-dark {
   --diff-delete-hover-gutter-color: #{$red-700};
   --diff-delete-hover-text-color: var(--text-color);
 
-  --diff-empty-row-background-color: #{darken($gray-900, 1%)};
+  --diff-empty-row-background-color: var(--diff-background-color);
   --diff-empty-row-gutter-background-color: var(--diff-gutter-background-color);
-  --diff-empty-hunk-handle: #{$gray-700};
+  --diff-empty-hunk-handle: #343434;
 
   // Syntax highlighting text colors
   --syntax-variable-color: #{$purple-300};

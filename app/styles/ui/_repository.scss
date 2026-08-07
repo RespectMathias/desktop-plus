@@ -6,7 +6,7 @@
   flex-direction: row;
   flex: 1 1 auto;
   border-top: 1px solid var(--fluent-divider-stroke);
-  background: var(--mica-surface-fill);
+  background: var(--repository-canvas-background-color);
   height: 100%;
   min-height: 0;
 
@@ -21,11 +21,11 @@
   &-sidebar {
     display: flex;
     flex-direction: column;
-    background-color: var(--mica-surface-fill);
+    background-color: var(--repository-sidebar-background-color);
     background-image: var(--surface-grain);
     background-repeat: repeat;
     background-size: var(--surface-grain-size);
-    border-right: 1px solid var(--fluent-divider-stroke);
+    border-right: 1px solid var(--repository-sidebar-border-color);
 
     .tab-bar {
       flex-shrink: 0;
