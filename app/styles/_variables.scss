@@ -59,12 +59,6 @@ $overlay-background-color: rgba(0, 0, 0, 0.4);
   --mica-surface-fill: #ffffff;
   --mica-raised-fill: #fcfcfc;
   --mica-overlay-fill: #ffffff;
-  --repository-canvas-background-color: #fcfcfc;
-  --repository-sidebar-background-color: #fafafa;
-  --repository-sidebar-control-background-color: #f4f4f5;
-  --repository-sidebar-hover-background-color: #fcfcfc;
-  --repository-sidebar-selected-background-color: #ffffff;
-  --repository-sidebar-border-color: #e4e4e7;
   --mica-glass-blur: 12px;
   --mica-glass-saturation: 1.14;
   --mica-elevated-border: #0000001a;
@@ -475,7 +469,6 @@ $overlay-background-color: rgba(0, 0, 0, 0.4);
 
   --diff-line-padding-y: 2px;
 
-  --diff-background-color: #ffffff;
   --diff-text-color: #{$gray-900};
   --diff-alt-text-color: #{$gray-700};
   --diff-border-color: #{$gray-200};
