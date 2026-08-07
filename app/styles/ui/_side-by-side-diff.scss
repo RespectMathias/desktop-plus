@@ -78,7 +78,7 @@
     font-family: var(--diff-font-family, var(--font-family-monospace));
     font-size: var(--diff-font-size, var(--font-size-sm));
     color: var(--diff-text-color);
-    background: var(--box-background-color);
+    background: var(--diff-background-color);
   }
 
   .side-by-side-diff-body {
