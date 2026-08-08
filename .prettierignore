@@ -7,6 +7,7 @@ yarn-error.log
 .DS_Store
 .awcache
 .idea/
+.context/
 .eslintcache
 app/coverage
 script/coverage
